@@ -1,19 +1,24 @@
 /**
  * Created by dimitrimical on 07/05/2016.
  */
-var Dragging = new Kiwi.State('Dragging');
+var Dragging = new Kiwi.State('Play');
 
 Dragging.preload = function () {
-    this.game.stage.height = 350;
+    this.game.stage.height = 500;
+    this.addImage('kitchen', 'assets/static/kitchen.jpg');
     this.addImage('ramen', 'assets/static/ramen.png');
     this.addImage('soja', 'assets/static/Soy_sauce.png');
 }
 
 Dragging.create = function () {
     //Text
-    var text = new Kiwi.GameObjects.Textfield(this, 'Passe ton Master Chef !', this.game.stage.width / 2, 10, '#000', 12);
+    var text = new Kiwi.GameObjects.Textfield(this, 'Passe ton Master Chef !', this.game.stage.width / 2, 16, '#000', 12);
     text.textAlign = 'center';
     this.addChild(text);
+
+    //wallpaper
+    this.kitchen = new Kiwi.GameObjects.Sprite(this, this.textures.kitchen, 0, 0);
+    this.addChild(this.kitchen);
 
     //Create the ramen. Enable the input component by passing true.
     this.ramen = new Kiwi.GameObjects.Sprite(this, this.textures.ramen, 10, 10, true);
@@ -27,13 +32,13 @@ Dragging.create = function () {
      * When you want a sprite to be draggable you have to enable the drag on that element.
      **/
     this.ramen.input.enableDrag();
+    this.soja.input.enableDrag();
 
     /**
      * Parameter One - OPTIONAL - Snap the sprite to the center. - Default to false
      * Parameter Two - OPTIONAL - Distance between gridpoints in which the sprite should snap to.
      **/
     //this.soja.input.enableDrag(true, 25);
-    this.soja.input.enableDrag();
 }
 
 
