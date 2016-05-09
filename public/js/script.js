@@ -3,6 +3,7 @@
  */
 var Dragging = new Kiwi.State('Play');
 
+//pour charger toutes les sprites
 Dragging.preload = function () {
     this.game.stage.height = 480;
     this.addImage('room', 'assets/static/room.png');
@@ -12,39 +13,93 @@ Dragging.preload = function () {
     this.addImage('carton', 'assets/static/carton.png');
 }
 
+//création et placement de tous les sprites
 Dragging.create = function () {
-    //Text
-    var text = new Kiwi.GameObjects.Textfield(this, 'Passe ton Master Chef !', this.game.stage.width / 2, 16, '#000', 12);
-    text.textAlign = 'center';
-    this.addChild(text);
+
+    // Create a new Kiwi.Group.
+    this.oeuvres = new Kiwi.Group( this );
+    // Create a new Kiwi.Group.
+    this.menugroup = new Kiwi.Group( this );
+
+    // Add the group to the state.
+    this.addChild( this.oeuvres );
 
     //Background
     this.room = new Kiwi.GameObjects.Sprite(this, this.textures.room, 0, 0);
-    this.addChild(this.room);
+    this.oeuvres.addChild( this.room );
 
     //Create a Cardboard
     this.carton = new Kiwi.GameObjects.Sprite(this, this.textures.carton, 240, 375, true);
     this.addChild(this.carton);
-    
+    this.oeuvres.addChild( this.carton);
+
+
     //Create the pikachu. Enable the input component by passing true.
     this.pikachu = new Kiwi.GameObjects.Sprite(this, this.textures.pikachu, 660, 162, true);
-    this.addChild(this.pikachu);
+    this.oeuvres.addChild( this.pikachu );
 
     //Create the superman. Enable the input component by passing true.
     this.superman = new Kiwi.GameObjects.Sprite(this, this.textures.superman, 10, 14, true);
-    this.addChild(this.superman);
+    this.oeuvres.addChild( this.superman );
 
     //Create a Mario Bros block
     this.bloc = new Kiwi.GameObjects.Sprite(this, this.textures.bloc, 400, 300, true);
-    this.addChild(this.bloc);
+    this.oeuvres.addChild( this.bloc );
+
+    this.oeuvres.visible = false;
+
+    this.menuWidth = 100;
+
+    // Adds a menu widget to the defaultHUD of the game.
+    this.myButton1 = new Kiwi.HUD.Widget.MenuItem( this.game, 'Jouer', this.menuWidth, 0 );
+    this.myButton1.style.color = 'white';
+    this.myButton1.style.display = 'block';
+    this.myButton1.style.boxSizing = 'border-box';
+    this.myButton1.style.width = (this.menuWidth * 2).toString() + 'px';
+    this.myButton1.style.textAlign = 'center';
+    this.myButton1.style.cursor = 'pointer';
+    this.myButton1.style.padding = '0.5em 1em';
+    this.myButton1.style.backgroundColor = '#9c0';
+
+    this.myButton2 = new Kiwi.HUD.Widget.MenuItem( this.game, 'Mon profil', this.menuWidth, 50 );
+    this.myButton2.style.color = 'white';
+    this.myButton2.style.display = 'block';
+    this.myButton2.style.boxSizing = 'border-box';
+    this.myButton2.style.width = (this.menuWidth * 2).toString() + 'px';
+    this.myButton2.style.textAlign = 'center';
+    this.myButton2.style.cursor = 'pointer';
+    this.myButton2.style.padding = '0.5em 1em';
+    this.myButton2.style.backgroundColor = '#c09';
+
+    this.myButton3 = new Kiwi.HUD.Widget.MenuItem( this.game, 'Center', this.menuWidth, 100 );
+    this.myButton3.style.color = 'white';
+    this.myButton3.style.display = 'block';
+    this.myButton3.style.boxSizing = 'border-box';
+    this.myButton3.style.width = (this.menuWidth * 2).toString() + 'px';
+    this.myButton3.style.textAlign = 'center';
+    this.myButton3.style.cursor = 'pointer';
+    this.myButton3.style.padding = '0.5em 1em';
+    this.myButton3.style.backgroundColor = '#09c';
+
+
+    this.menu = new Kiwi.HUD.Widget.Menu( this.game, 0, 150 );
+    this.menu.addMenuItem( this.myButton1 );
+    this.menu.addMenuItem( this.myButton2 );
+    this.menu.addMenuItem( this.myButton3 );
+    this.game.huds.defaultHUD.addWidget( this.menu );
+
+    this.menu.getMenuItem(0).input.onDown.add( this.leftButton, this );
+    this.menu.getMenuItem(1).input.onDown.add( this.rightButton, this );
+    this.menu.addChild( this.menugroup );
+
 
     /**
      * When you want a sprite to be draggable you have to enable the drag on that element.
      **/
 
     this.pikachu.input.enableDrag();
-    /* this.superman.input.onDragStarted.add( this.startedDrag, this );
-     this.superman.input.onDragStopped.add( this.stoppedDrag, this );*/
+    this.superman.input.onDragStarted.add( this.startedDrag, this );
+    this.superman.input.onDragStopped.add( this.stoppedDrag, this );
 
     this.superman.input.enableDrag();
     /* this.superman.input.onDragStarted.add( this.startedDrag, this );
@@ -60,6 +115,16 @@ Dragging.create = function () {
      * Parameter Two - OPTIONAL - Distance between gridpoints in which the sprite should snap to.
      **/
     //this.bloc.input.enableDrag(true, 25);
+
+}
+
+Dragging.leftButton = function () {
+    this.menugroup.visible = !this.menugroup.visible;
+    this.oeuvres.visible = !this.oeuvres.visible;
+}
+
+Dragging.rightButton = function () {
+    this.menu.x += 10;
 }
 
 Dragging.startedDrag = function () {
