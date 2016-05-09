@@ -4,7 +4,7 @@
 var Dragging = new Kiwi.State('Play');
 
 Dragging.preload = function () {
-    this.game.stage.height = 500;
+    this.game.stage.height = 250;
     this.addImage('kitchen', 'assets/static/kitchen.jpg');
     this.addImage('ramen', 'assets/static/ramen.png');
     this.addImage('soja', 'assets/static/Soy_sauce.png');
@@ -25,14 +25,20 @@ Dragging.create = function () {
     this.addChild(this.ramen);
 
     //Create the soy-sauce.
-    this.soja = new Kiwi.GameObjects.Sprite(this, this.textures.soja, 400, 120, true);
+    this.soja = new Kiwi.GameObjects.Sprite(this, this.textures.soja, 400, 50, true);
     this.addChild(this.soja);
 
     /**
      * When you want a sprite to be draggable you have to enable the drag on that element.
      **/
     this.ramen.input.enableDrag();
-    this.soja.input.enableDrag();
+    /* this.ramen.input.onDragStarted.add( this.startedDrag, this );
+     this.ramen.input.onDragStopped.add( this.stoppedDrag, this );*/
+
+    this.soja.input.enableDrag()
+    /* this.ramen.input.onDragStarted.add( this.startedDrag, this );
+     this.ramen.input.onDragStopped.add( this.stoppedDrag, this );*/
+
 
     /**
      * Parameter One - OPTIONAL - Snap the sprite to the center. - Default to false
@@ -41,6 +47,14 @@ Dragging.create = function () {
     //this.soja.input.enableDrag(true, 25);
 }
 
+Dragging.startedDrag = function () {
+    // this.player.animation.play( 'run' )
+    alert("debut du drag");
+}
+
+Dragging.stoppedDrag = function () {
+    alert("fin du drag");
+}
 
 //Create's a new Kiwi.Game.
 /*
@@ -49,6 +63,13 @@ Dragging.create = function () {
  * Param Three - State - Object - The state that is to be loaded by default.
  * Param Four - Options - Object - Optional options that the game will use whilst playing. Currently this is used to to choose the renderer/debugmode/device to target
  */
+//Initialise the Kiwi Game.
+var gameOptions = {
+    renderer: Kiwi.RENDERER_WEBGL,
+    width: 600,
+    height: 342
+}
 if (typeof  gameOptions == "undefined")  gameOptions = {};
+
 
 var game = new Kiwi.Game('GameContainer', 'KiwiExample', Dragging, gameOptions);
