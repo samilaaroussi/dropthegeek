@@ -5,7 +5,8 @@ var Dragging = new Kiwi.State('Play');
 
 Dragging.preload = function () {
     this.game.stage.height = 250;
-    this.addImage('kitchen', 'assets/static/kitchen.jpg');
+    this.addImage('kitchen', 'assets/static/kitchen2.jpg');
+    this.addImage('wok', 'assets/static/wok.png');
     this.addImage('ramen', 'assets/static/ramen.png');
     this.addImage('soja', 'assets/static/Soy_sauce.png');
 }
@@ -20,12 +21,16 @@ Dragging.create = function () {
     this.kitchen = new Kiwi.GameObjects.Sprite(this, this.textures.kitchen, 0, 0);
     this.addChild(this.kitchen);
 
+    //Create the wok. Enable the input component by passing true.
+    this.wok = new Kiwi.GameObjects.Sprite(this, this.textures.wok, 400, 300, true);
+    this.addChild(this.wok);
+
     //Create the ramen. Enable the input component by passing true.
     this.ramen = new Kiwi.GameObjects.Sprite(this, this.textures.ramen, 10, 10, true);
     this.addChild(this.ramen);
 
     //Create the soy-sauce.
-    this.soja = new Kiwi.GameObjects.Sprite(this, this.textures.soja, 400, 50, true);
+    this.soja = new Kiwi.GameObjects.Sprite(this, this.textures.soja, 800, 300, true);
     this.addChild(this.soja);
 
     /**
@@ -66,8 +71,8 @@ Dragging.stoppedDrag = function () {
 //Initialise the Kiwi Game.
 var gameOptions = {
     renderer: Kiwi.RENDERER_WEBGL,
-    width: 600,
-    height: 342
+    width: 1024,
+    height: 643
 }
 if (typeof  gameOptions == "undefined")  gameOptions = {};
 
