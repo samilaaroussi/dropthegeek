@@ -9,6 +9,7 @@ Dragging.preload = function () {
     this.addImage('pikachu', 'assets/static/pikachu.png');
     this.addImage('superman', 'assets/static/superman.png');
     this.addImage('bloc', 'assets/static/bloc.png');
+    this.addImage('carton', 'assets/static/carton.png');
 }
 
 Dragging.create = function () {
@@ -21,12 +22,16 @@ Dragging.create = function () {
     this.room = new Kiwi.GameObjects.Sprite(this, this.textures.room, 0, 0);
     this.addChild(this.room);
 
+    //Create a Cardboard
+    this.carton = new Kiwi.GameObjects.Sprite(this, this.textures.carton, 240, 375, true);
+    this.addChild(this.carton);
+    
     //Create the pikachu. Enable the input component by passing true.
     this.pikachu = new Kiwi.GameObjects.Sprite(this, this.textures.pikachu, 660, 162, true);
     this.addChild(this.pikachu);
 
     //Create the superman. Enable the input component by passing true.
-    this.superman = new Kiwi.GameObjects.Sprite(this, this.textures.superman, 10, 10, true);
+    this.superman = new Kiwi.GameObjects.Sprite(this, this.textures.superman, 10, 14, true);
     this.addChild(this.superman);
 
     //Create a Mario Bros block
