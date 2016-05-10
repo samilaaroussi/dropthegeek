@@ -5,7 +5,7 @@ var Dragging = new Kiwi.State('Play');
 
 //pour charger toutes les sprites
 Dragging.preload = function () {
-    this.game.stage.height = 480;
+    this.game.stage.resize(720, 480);
     this.addImage('room', 'assets/static/room.png');
     this.addImage('pikachu', 'assets/static/pikachu.png');
     this.addImage('superman', 'assets/static/superman.png');
@@ -46,9 +46,9 @@ Dragging.create = function () {
     this.bloc = new Kiwi.GameObjects.Sprite(this, this.textures.bloc, 400, 300, true);
     this.oeuvres.addChild( this.bloc );
 
-    this.oeuvres.visible = false;
+    this.oeuvres.visible = true;
 
-    this.menuWidth = 100;
+    /*this.menuWidth = 100;
 
     // Adds a menu widget to the defaultHUD of the game.
     this.myButton1 = new Kiwi.HUD.Widget.MenuItem( this.game, 'Jouer', this.menuWidth, 0 );
@@ -81,16 +81,14 @@ Dragging.create = function () {
     this.myButton3.style.padding = '0.5em 1em';
     this.myButton3.style.backgroundColor = '#09c';
 
-
-    this.menu = new Kiwi.HUD.Widget.Menu( this.game, 0, 150 );
+    this.menu = new Kiwi.HUD.Widget.Menu( this.game, 240, 150 );
     this.menu.addMenuItem( this.myButton1 );
     this.menu.addMenuItem( this.myButton2 );
     this.menu.addMenuItem( this.myButton3 );
     this.game.huds.defaultHUD.addWidget( this.menu );
 
     this.menu.getMenuItem(0).input.onDown.add( this.leftButton, this );
-    this.menu.getMenuItem(1).input.onDown.add( this.rightButton, this );
-    this.menu.addChild( this.menugroup );
+    this.menu.getMenuItem(1).input.onDown.add( this.rightButton, this );*/
 
 
     /**
@@ -119,7 +117,8 @@ Dragging.create = function () {
 }
 
 Dragging.leftButton = function () {
-    this.menugroup.visible = !this.menugroup.visible;
+    this.game.menu.hideHUD();
+    this.game.huds.defaultHUD.addWidget( this.menu );
     this.oeuvres.visible = !this.oeuvres.visible;
 }
 
@@ -146,10 +145,9 @@ Dragging.stoppedDrag = function () {
 //Initialise the Kiwi Game.
 var gameOptions = {
     renderer: Kiwi.RENDERER_WEBGL,
-    width: 1024,
-    height: 643
+    width: 720,
+    height: 480
 }
 if (typeof  gameOptions == "undefined")  gameOptions = {};
 
-
-var game = new Kiwi.Game('GameContainer', 'KiwiExample', Dragging, gameOptions);
+var game = new Kiwi.Game('GameContainer', 'KiwiExample', Dragging, { plugins: ["ChipmunkPhysics"]});
