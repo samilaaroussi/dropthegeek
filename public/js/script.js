@@ -5,7 +5,11 @@ var Dragging = new Kiwi.State('Play');
 
 //pour charger toutes les sprites
 Dragging.preload = function () {
+    this.game.chipmunkDebug.init();
     this.game.stage.resize(720, 480);
+    // Initalises the debug overlay
+    this.game.chipmunk.defaultSpace.gravityX = 100;
+    this.game.chipmunk.defaultSpace.gravityY = 100;
     this.addImage('room', 'assets/static/room.png');
     this.addImage('pikachu', 'assets/static/pikachu.png');
     this.addImage('superman', 'assets/static/superman.png');
@@ -146,8 +150,10 @@ Dragging.stoppedDrag = function () {
 var gameOptions = {
     renderer: Kiwi.RENDERER_WEBGL,
     width: 720,
-    height: 480
+    height: 480,
+    plugins: ['ChipmunkPhysics', 'ChipmunkPhysicsDebug']
+
 }
 if (typeof  gameOptions == "undefined")  gameOptions = {};
 
-var game = new Kiwi.Game('GameContainer', 'KiwiExample', Dragging, { plugins: ["ChipmunkPhysics"]});
+var game = new Kiwi.Game('GameContainer', 'KiwiExample', Dragging, gameOptions);
