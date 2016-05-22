@@ -140,11 +140,11 @@ Dragging.rightButton = function () {
 
 Dragging.startedDrag = function () {
     // this.player.animation.play( 'run' )
-    alert("debut du drag");
+    console.log("debut du drag");
 }
 
 Dragging.stoppedDrag = function () {
-    alert("fin du drag");
+    console.log("fin du drag");
 }
 
 //Create's a new Kiwi.Game.
