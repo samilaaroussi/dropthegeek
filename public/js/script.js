@@ -20,7 +20,7 @@ Dragging.preload = function () {
     this.addImage('superman', 'assets/static/superman.png');
     this.addImage('bloc', 'assets/static/bloc.png');
     this.addImage('carton', 'assets/static/carton.png');
-}
+};
 
 //création et placement de tous les sprites
 Dragging.create = function () {
@@ -115,7 +115,7 @@ Dragging.create = function () {
     /* this.superman.input.onDragStarted.add( this.startedDrag, this );
      this.superman.input.onDragStopped.add( this.stoppedDrag, this );*/
 
-    this.bloc.input.enableDrag()
+    this.bloc.input.enableDrag();
     /* this.superman.input.onDragStarted.add( this.startedDrag, this );
      this.superman.input.onDragStopped.add( this.stoppedDrag, this );*/
 
@@ -126,26 +126,26 @@ Dragging.create = function () {
      **/
     //this.bloc.input.enableDrag(true, 25);
 
-}
+};
 
 Dragging.leftButton = function () {
     this.game.menu.hideHUD();
     this.game.huds.defaultHUD.addWidget( this.menu );
     this.oeuvres.visible = !this.oeuvres.visible;
-}
+};
 
 Dragging.rightButton = function () {
     this.menu.x += 10;
-}
+};
 
 Dragging.startedDrag = function () {
     // this.player.animation.play( 'run' )
     console.log("debut du drag");
-}
+};
 
 Dragging.stoppedDrag = function () {
     console.log("fin du drag");
-}
+};
 
 //Create's a new Kiwi.Game.
 /*
@@ -161,7 +161,7 @@ var gameOptions = {
     height: 480,
     plugins: ['ChipmunkPhysics', 'ChipmunkPhysicsDebug']
 
-}
+};
 if (typeof  gameOptions == "undefined")  gameOptions = {};
 
 var game = new Kiwi.Game('GameContainer', 'KiwiExample', Dragging, gameOptions);

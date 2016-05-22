@@ -1,4 +1,4 @@
-//Our custom physics gameobject.
+
 var PhysicsGO = function(state, textureName, x, y, config) {
 
 
@@ -9,8 +9,6 @@ var PhysicsGO = function(state, textureName, x, y, config) {
 }
 
 Kiwi.extend( PhysicsGO, Kiwi.GameObjects.StaticImage );
-
-
 var State = new Kiwi.State('GameState');
 
 //Large Preload to load all of the assets in. Would definately be better to use a texture atlas.
@@ -28,6 +26,8 @@ State.create = function() {
 
     this.room = new Kiwi.GameObjects.Sprite(this, this.textures.room, 0, 0);
     this.addChild( this.room );
+    this.carton = new Kiwi.GameObjects.Sprite(this, this.textures.carton, 240, 375, true);
+    this.addChild(this.carton);
 
     this.toggleDebug();
 
@@ -36,8 +36,7 @@ State.create = function() {
 
 
 
-    //TODO: Sexier way to add?
-    this.space = this.game.chipmunk.space;
+     this.space = this.game.chipmunk.space;
 
 
     this.floor =  new Kiwi.Plugins.ChipmunkPhysics.Shapes.Segment( {
@@ -199,25 +198,19 @@ State.createKiwi = function() {
     this.createObj('pikachu', x, y, {
         type: 'poly',
         body: {
-            verts: [20, -20, -20, -20, -20, 24, 20, 24]
+            verts: [20, -20, -20, -20, -20, 20, 20, 20]
         }
     });
     this.createObj('superman', x + 44, y, {
         type: 'poly',
         body: {
-            verts: [5, -20, -5, -20, -5, 24, 5, 24]
+            verts: [10, -18, -10, -18, -10, 18, 10, 18]
         }
     });
-    this.createObj('bloc', x + 63, y, {
+    this.createObj('bloc', x + 80, y, {
         type: 'poly',
         body: {
-            verts: [28, -20, -28, -20, -18, 24, 18, 24]
-        }
-    });
-    this.createObj('carton', x + 122, y, {
-        type: 'poly',
-        body: {
-            verts: [5, -20, -5, -20, -5, 24, 5, 24]
+            verts: [15, -15, -15, -15, -15, 15, 15, 15]
         }
     });
 

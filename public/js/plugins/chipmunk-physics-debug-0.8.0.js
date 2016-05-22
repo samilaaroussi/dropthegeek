@@ -69,7 +69,7 @@ Kiwi.Plugins.ChipmunkPhysicsDebug.create = function( game ) {
   game.chipmunkDebug = new Kiwi.Plugins.ChipmunkPhysicsDebug.Manager(game);
 
   return game.chipmunkDebug;
-}
+};
 
 /**
 * 
