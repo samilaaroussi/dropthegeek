@@ -7,9 +7,14 @@ var Dragging = new Kiwi.State('Play');
 Dragging.preload = function () {
     this.game.chipmunkDebug.init();
     this.game.stage.resize(720, 480);
+
+    this.game.chipmunkDebug.renderConstraints = true;
+    this.game.chipmunkDebug.renderBodies  = true;
+    this.game.chipmunkDebug.renderShapes = true;
     // Initalises the debug overlay
     this.game.chipmunk.defaultSpace.gravityX = 100;
     this.game.chipmunk.defaultSpace.gravityY = 100;
+
     this.addImage('room', 'assets/static/room.png');
     this.addImage('pikachu', 'assets/static/pikachu.png');
     this.addImage('superman', 'assets/static/superman.png');
@@ -37,9 +42,12 @@ Dragging.create = function () {
     this.addChild(this.carton);
     this.oeuvres.addChild( this.carton);
 
-
     //Create the pikachu. Enable the input component by passing true.
     this.pikachu = new Kiwi.GameObjects.Sprite(this, this.textures.pikachu, 660, 162, true);
+    this.pikachu.physics = this.components.add( new Kiwi.Plugins.ChipmunkPhysics.Body({
+        mass: 100,
+        i: 25
+    }) );
     this.oeuvres.addChild( this.pikachu );
 
     //Create the superman. Enable the input component by passing true.
