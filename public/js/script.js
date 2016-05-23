@@ -1,53 +1,76 @@
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'GameContainer', { preload: preload, create: create });
+var game = new Phaser.Game(720, 480, Phaser.CANVAS, 'GameContainer', { preload: preload, create: create , render: render});
 
 function preload() {
 
-    game.load.image('ilkke', 'assets/static/pikachu.png');
+    game.load.image('carton', 'assets/static/carton.png');
+    game.load.image('bloc', 'assets/static/bloc.png');
+    game.load.image('pikachu', 'assets/static/pikachu.png');
+    game.load.image('superman', 'assets/static/superman.png');
+    game.load.image('room', 'assets/static/room.png');
 
 }
-
-var sprite;
 
 function create() {
 
-    game.stage.backgroundColor = '#2d2d2d';
+    game.stage.backgroundColor = '#124184';
 
-    game.physics.startSystem(Phaser.Physics.ARCADE);
+    // Enable Box2D physics
+    game.physics.startSystem(Phaser.Physics.BOX2D);
+    game.physics.box2d.setBoundsToWorld();
+    game.physics.box2d.gravity.y = 500;
+    game.add.sprite(0, 0, 'room');
 
-    //  Set the world (global) gravity
-    game.physics.arcade.gravity.y = 100;
+    // Dynamic boxes
+    /*for (var i = 0; i < 5; i++)
+    {
+        var blockSprite = game.add.sprite(150 + i * 125, 300 - i * 50, 'block');
+        game.physics.box2d.enable(blockSprite);
+        blockSprite.body.angle = 30;
+    }*/
+    var biblio = new Phaser.Physics.Box2D.Body(this.game, null, 670, 300, 100);
+    biblio.setPolygon([-40, -100, -40, 150, 40, 150, 40, -100 ]);
+    var carton = game.add.physicsGroup(Phaser.Physics.BOX2D);
+    carton.create(350, 420, 'carton').body.static = true;
+    var bloc =  game.add.sprite(100, 96, 'bloc');
+    game.physics.box2d.enable(bloc);
+    bloc.body.angle = 30;
+    var pikachu =  game.add.sprite(100, 96, 'pikachu');
+    game.physics.box2d.enable(pikachu);
+    pikachu.body.angle = 30;
+    var superman =  game.add.sprite(100, 96, 'superman');
+    game.physics.box2d.enable(superman);
+    superman.body.angle = 30;
 
 
-    //  Sprite 1 will use the World (global) gravity
-    sprite = game.add.sprite(100, 96, 'ilkke');
 
-    game.physics.arcade.enable(sprite,Phaser.Physics.ARCADE);
-    sprite.body.collideWorldBounds = true;
-    game.debug.bodyInfo(sprite, 32, 32);
-    game.debug.body(sprite);
-    sprite.body.bounce.set(0.2);
+    // Set up handlers for mouse events
+    game.input.onDown.add(mouseDragStart, this);
+    game.input.addMoveCallback(mouseDragMove, this);
+    game.input.onUp.add(mouseDragEnd, this);
 
-    //  Also enable sprite for drag
-    sprite.inputEnabled = true;
-    sprite.input.enableDrag();
-
-    sprite.events.onDragStart.add(startDrag, this);
-    sprite.events.onDragStop.add(stopDrag, this);
-
-    game.add.text(32, 32, 'Drag and release the sprite', { font: '16px Arial', fill: '#ffffff' });
 
 }
 
-function startDrag() {
+function mouseDragStart() {
 
-    //  You can't have a sprite being moved by physics AND input, so we disable the physics while being dragged
-    sprite.body.moves = false;
+    game.physics.box2d.mouseDragStart(game.input.mousePointer);
 
 }
 
-function stopDrag() {
+function mouseDragMove() {
 
-    //  And re-enable it upon release
-    sprite.body.moves = true;
+    game.physics.box2d.mouseDragMove(game.input.mousePointer);
+
+}
+
+function mouseDragEnd() {
+
+    game.physics.box2d.mouseDragEnd();
+
+}
+
+function render() {
+
+   // game.debug.box2dWorld();
 
 }
