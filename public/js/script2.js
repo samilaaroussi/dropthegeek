@@ -38,6 +38,44 @@ State.create = function() {
 
      this.space = this.game.chipmunk.space;
 
+    this.aero1 =  new Kiwi.Plugins.ChipmunkPhysics.Shapes.Box2( {
+        body: this.space.staticBody,
+        box: {
+            l: 15,
+            r: 82,
+            t: 84,
+            b: 47
+        },
+        elasticity: 0.8,
+        friction: 1
+    });
+    this.space.addShape( this.aero1 );
+
+    this.aero2 =  new Kiwi.Plugins.ChipmunkPhysics.Shapes.Box2( {
+        body: this.space.staticBody,
+        box: {
+            l: 128,
+            r: 196,
+            t: 84,
+            b: 47
+        },
+        elasticity: 0.8,
+        friction: 1
+    });
+    this.space.addShape( this.aero2 );
+
+    this.bibli =  new Kiwi.Plugins.ChipmunkPhysics.Shapes.Box2( {
+        body: this.space.staticBody,
+        box: {
+            l: this.game.stage.width - 90,
+            r: this.game.stage.width,
+            t: 440,
+            b: 200
+        },
+        elasticity: 0.8,
+        friction: 1
+    });
+    this.space.addShape( this.bibli );
 
     this.floor =  new Kiwi.Plugins.ChipmunkPhysics.Shapes.Segment( {
         body: this.space.staticBody,
@@ -53,6 +91,81 @@ State.create = function() {
         friction: 1
     });
     this.space.addShape( this.floor );
+
+    this.ventilo =  new Kiwi.Plugins.ChipmunkPhysics.Shapes.Segment( {
+        body: this.space.staticBody,
+        start: {
+            x: 290,
+            y: 130
+        },
+        end: {
+            x: 422,
+            y: 130
+        },
+        elasticity: 0.8,
+        friction: 1
+    });
+    this.space.addShape( this.ventilo );
+
+    this.table =  new Kiwi.Plugins.ChipmunkPhysics.Shapes.Segment( {
+        body: this.space.staticBody,
+        start: {
+            x: 435,
+            y: 400
+        },
+        end: {
+            x: 537,
+            y: 400
+        },
+        elasticity: 0.8,
+        friction: 1
+    });
+    this.space.addShape( this.table );
+
+    this.table =  new Kiwi.Plugins.ChipmunkPhysics.Shapes.Segment( {
+        body: this.space.staticBody,
+        start: {
+            x: 58,
+            y: 350
+        },
+        end: {
+            x: 150,
+            y: 350
+        },
+        elasticity: 0.8,
+        friction: 1
+    });
+    this.space.addShape( this.table );
+
+    this.etagere1 =  new Kiwi.Plugins.ChipmunkPhysics.Shapes.Segment( {
+        body: this.space.staticBody,
+        start: {
+            x: 216,
+            y: 180
+        },
+        end: {
+            x: 249,
+            y: 180
+        },
+        elasticity: 0.8,
+        friction: 1
+    });
+    this.space.addShape( this.etagere1 );
+
+    this.etagere2 =  new Kiwi.Plugins.ChipmunkPhysics.Shapes.Segment( {
+        body: this.space.staticBody,
+        start: {
+            x: 216,
+            y: 270
+        },
+        end: {
+            x: 249,
+            y: 270
+        },
+        elasticity: 0.8,
+        friction: 1
+    });
+    this.space.addShape( this.etagere2 );
 
 
     this.leftWall =  new Kiwi.Plugins.ChipmunkPhysics.Shapes.Segment( {
@@ -84,12 +197,13 @@ State.create = function() {
         elasticity: 0.8,
         friction: 1
     });
-    this.space.addShape( this.rightWall )
+    this.space.addShape( this.rightWall );
 
 
 
 
     var self = this;
+    self.space.gravityY = 1000;
     //The box which the user needs to click in to apply gravity
     var clickBox = new Kiwi.Geom.Rectangle(
         100,
@@ -100,13 +214,13 @@ State.create = function() {
     //Mouse event to enable gravity when the user releases the mouse within the boundaries of the screen.
     //This event will fire before the 'onUp' event below (due to use setting its priority level higher)
     // So we can then not enable gravity if the user is dragging an item.
-    this.game.input.onUp.add( function( x, y ) {
+   /* this.game.input.onUp.add( function( x, y ) {
 
         if( !this.mouseJoint && clickBox.contains(x, y) ) {
-            self.space.gravityY = 400;
+            self.space.gravityY = 1000;
         }
 
-    }, this, 2 );
+    }, this, 2 );*/
 
     //Add mouse events for press/release. 
     //These control the dragging of shapes.
@@ -224,7 +338,7 @@ State.createObj = function(texture, x, y, config) {
     config.shape = config.shape || {};
 
     //Set the elasticity of the objects
-    config.shape.elasticity = 0.8;
+    config.shape.elasticity = 0.5;
     config.shape.friction = 0.5;
 
 
@@ -236,10 +350,10 @@ State.createObj = function(texture, x, y, config) {
 State.toggleDebug = function() {
 
     //Initialise the physics debugger
-    this.game.chipmunkDebug.init();
+    /* this.game.chipmunkDebug.init();
 
     //Hide the debug canvas by default
-    this.game.stage.toggleDebugCanvas();
+      this.game.stage.toggleDebugCanvas();*/
 
     //Create a hud button and add it.
     var button = new Kiwi.HUD.Widget.Button( this.game, 'Toggle Debug', 5, 5 );
