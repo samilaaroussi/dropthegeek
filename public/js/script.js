@@ -52,7 +52,7 @@ function create() {
 
     // on creer chaque object oklm !
     $.each(nameObjects, function( index, value ) {
-        var object =  game.add.sprite(100+index*2, 96, value);
+        var object =  game.add.sprite(Math.floor((Math.random() * game.width) ), Math.floor((Math.random() * game.height) ), value);
         game.physics.box2d.enable(object);
         object.body.angle = 30;
     });
