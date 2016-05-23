@@ -2,11 +2,27 @@ var game = new Phaser.Game(720, 480, Phaser.CANVAS, 'GameContainer', { preload: 
 
 function preload() {
 
-    game.load.image('carton', 'assets/static/carton.png');
-    game.load.image('bloc', 'assets/static/bloc.png');
-    game.load.image('pikachu', 'assets/static/pikachu.png');
-    game.load.image('superman', 'assets/static/superman.png');
     game.load.image('room', 'assets/static/room.png');
+    game.load.image('carton', 'assets/static/carton.png');
+
+   /* game.load.image('bloc', 'assets/objects/bloc.png');
+    game.load.image('pikachu', 'assets/objects/pikachu.png');
+    game.load.image('superman', 'assets/objects/superman.png');*/
+
+    var dir = "assets/objects/";
+    var fileextension = ".png";
+    $.ajax({
+        //This will retrieve the contents of the folder if the folder is configured as 'browsable'
+        url: dir,
+        success: function (data) {
+            //List all .png file names in the page
+            $(data).find("a:contains(" + fileextension + ")").each(function (index,value) {
+                /*var filename = this.href.replace(window.location.host, "").replace("http://", "");
+                $("body").append("<img src='" + dir + filename + "'>");*/
+                console.log("value : " + value);
+            });
+        }
+    });
 
 }
 
@@ -29,14 +45,18 @@ function create() {
     }*/
     var biblio = new Phaser.Physics.Box2D.Body(this.game, null, 670, 300, 100);
     biblio.setPolygon([-40, -100, -40, 150, 40, 150, 40, -100 ]);
+
     var carton = game.add.physicsGroup(Phaser.Physics.BOX2D);
     carton.create(350, 420, 'carton').body.static = true;
+
     var bloc =  game.add.sprite(100, 96, 'bloc');
     game.physics.box2d.enable(bloc);
     bloc.body.angle = 30;
+
     var pikachu =  game.add.sprite(100, 96, 'pikachu');
     game.physics.box2d.enable(pikachu);
     pikachu.body.angle = 30;
+
     var superman =  game.add.sprite(100, 96, 'superman');
     game.physics.box2d.enable(superman);
     superman.body.angle = 30;
@@ -71,6 +91,6 @@ function mouseDragEnd() {
 
 function render() {
 
-   // game.debug.box2dWorld();
+    game.debug.box2dWorld();
 
 }

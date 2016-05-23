@@ -11,6 +11,9 @@ app.get('/', function (req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
 
+app.get('/assets', function (req, res) {
+    res.sendFile(__dirname + '/public/assets/objects');
+});
 
 app.listen(serverPort, function () {
     console.log('Listening on : ' + serverPort);
