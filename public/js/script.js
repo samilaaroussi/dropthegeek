@@ -18,6 +18,7 @@ function preload() {
                 var filename = this.href.replace(".png","").replace(window.location.host + "/assets/", "").replace("http://", "");
                 //load les images
                 game.load.image(filename,'assets/objects/' + filename + '.png');
+                //console.log("file" + filename);
                 nameObjects.push(filename);
             });
         }
@@ -51,22 +52,11 @@ function create() {
 
     // on creer chaque object oklm !
     $.each(nameObjects, function( index, value ) {
-        var object =  game.add.sprite(100, 96, value);
+        var object =  game.add.sprite(100+index*2, 96, value);
         game.physics.box2d.enable(object);
         object.body.angle = 30;
     });
-/*
-    var bloc =  game.add.sprite(100, 96, 'bloc');
-    game.physics.box2d.enable(bloc);
-    bloc.body.angle = 30;
 
-    var pikachu =  game.add.sprite(100, 96, 'pikachu');
-    game.physics.box2d.enable(pikachu);
-    pikachu.body.angle = 30;
-
-    var superman =  game.add.sprite(100, 96, 'superman');
-    game.physics.box2d.enable(superman);
-    superman.body.angle = 30;*/
 
 
 
@@ -98,6 +88,6 @@ function mouseDragEnd() {
 
 function render() {
 
-    game.debug.box2dWorld();
+   // game.debug.box2dWorld();
 
 }
