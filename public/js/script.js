@@ -1,25 +1,24 @@
 var game = new Phaser.Game(720, 480, Phaser.CANVAS, 'GameContainer', { preload: preload, create: create , render: render});
+var nameObjects=[];
 
 function preload() {
 
     game.load.image('room', 'assets/static/room.png');
     game.load.image('carton', 'assets/static/carton.png');
 
-   /* game.load.image('bloc', 'assets/objects/bloc.png');
-    game.load.image('pikachu', 'assets/objects/pikachu.png');
-    game.load.image('superman', 'assets/objects/superman.png');*/
 
-    var dir = "assets/objects/";
+    var dir = "assets/";
     var fileextension = ".png";
     $.ajax({
-        //This will retrieve the contents of the folder if the folder is configured as 'browsable'
+        //va chercher les images 'browsable' (grace au plugin npm serve-index)
         url: dir,
         success: function (data) {
-            //List all .png file names in the page
+            //liste les images png
             $(data).find("a:contains(" + fileextension + ")").each(function (index,value) {
-                /*var filename = this.href.replace(window.location.host, "").replace("http://", "");
-                $("body").append("<img src='" + dir + filename + "'>");*/
-                console.log("value : " + value);
+                var filename = this.href.replace(".png","").replace(window.location.host + "/assets/", "").replace("http://", "");
+                //load les images
+                game.load.image(filename,'assets/objects/' + filename + '.png');
+                nameObjects.push(filename);
             });
         }
     });
@@ -28,7 +27,7 @@ function preload() {
 
 function create() {
 
-    game.stage.backgroundColor = '#124184';
+    //game.stage.backgroundColor = '#124184';
 
     // Enable Box2D physics
     game.physics.startSystem(Phaser.Physics.BOX2D);
@@ -49,6 +48,14 @@ function create() {
     var carton = game.add.physicsGroup(Phaser.Physics.BOX2D);
     carton.create(350, 420, 'carton').body.static = true;
 
+
+    // on creer chaque object oklm !
+    $.each(nameObjects, function( index, value ) {
+        var object =  game.add.sprite(100, 96, value);
+        game.physics.box2d.enable(object);
+        object.body.angle = 30;
+    });
+/*
     var bloc =  game.add.sprite(100, 96, 'bloc');
     game.physics.box2d.enable(bloc);
     bloc.body.angle = 30;
@@ -59,7 +66,7 @@ function create() {
 
     var superman =  game.add.sprite(100, 96, 'superman');
     game.physics.box2d.enable(superman);
-    superman.body.angle = 30;
+    superman.body.angle = 30;*/
 
 
 

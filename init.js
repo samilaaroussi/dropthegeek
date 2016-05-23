@@ -1,18 +1,15 @@
 var express = require('express');
+var serveIndex = require('serve-index')
 var app = express();
+var serverPort = 3000;
 
 
 app.use(express.static(__dirname + '/public/'));
-
-var serverPort = 3000;
+app.use('/assets', serveIndex('public/assets/objects', {'icons': true}))
 
 
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/public/index.html');
-});
-
-app.get('/assets', function (req, res) {
-    res.sendFile(__dirname + '/public/assets/objects');
 });
 
 app.listen(serverPort, function () {
