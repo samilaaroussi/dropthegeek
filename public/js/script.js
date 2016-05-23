@@ -59,6 +59,7 @@ function create() {
 
 
 
+    game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 
     // Set up handlers for mouse events
     game.input.onDown.add(mouseDragStart, this);
@@ -83,6 +84,18 @@ function mouseDragMove() {
 function mouseDragEnd() {
 
     game.physics.box2d.mouseDragEnd();
+
+}
+function gofull() {
+
+    if (game.scale.isFullScreen)
+    {
+        game.scale.stopFullScreen();
+    }
+    else
+    {
+        game.scale.startFullScreen(false);
+    }
 
 }
 
