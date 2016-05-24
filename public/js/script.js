@@ -1,5 +1,6 @@
 var game = new Phaser.Game(720, 480, Phaser.CANVAS, 'GameContainer', { preload: preload, create: create , render: render});
 var nameObjects=[];
+var ContactCount = 0;
 
 function preload() {
 
@@ -28,31 +29,33 @@ function preload() {
 
 function create() {
 
-    //game.stage.backgroundColor = '#124184';
 
     // Enable Box2D physics
     game.physics.startSystem(Phaser.Physics.BOX2D);
     game.physics.box2d.setBoundsToWorld();
     game.physics.box2d.gravity.y = 500;
-    game.add.sprite(0, 0, 'room');
+    var room = game.add.sprite(0, 0, 'room');
+    room.smoothed = false;
 
-    // Dynamic boxes
-    /*for (var i = 0; i < 5; i++)
-    {
-        var blockSprite = game.add.sprite(150 + i * 125, 300 - i * 50, 'block');
-        game.physics.box2d.enable(blockSprite);
-        blockSprite.body.angle = 30;
-    }*/
     var biblio = new Phaser.Physics.Box2D.Body(this.game, null, 670, 300, 100);
     biblio.setPolygon([-40, -100, -40, 150, 40, 150, 40, -100 ]);
 
-    var carton = game.add.physicsGroup(Phaser.Physics.BOX2D);
-    carton.create(350, 420, 'carton').body.static = true;
+    var carton = game.add.sprite(350, 420, 'carton');
+    game.physics.box2d.enable(carton);
+    carton.body.fixedRotation = true;
+    carton.body.static = true;
+   // carton.SetSensor(true);
+    carton.body.setFixtureContactCallback(carton,  cartonCallback,  this);
 
 
-    // on creer chaque object oklm !
+
+    // on cree chaque object  !
     $.each(nameObjects, function( index, value ) {
         var object =  game.add.sprite(Math.floor((Math.random() * game.width) ), Math.floor((Math.random() * game.height) ), value);
+
+        //lissage fullscreen mais aliasing ...
+        //object.smoothed = false;
+
         game.physics.box2d.enable(object);
         object.body.angle = 30;
     });
@@ -86,6 +89,22 @@ function mouseDragEnd() {
     game.physics.box2d.mouseDragEnd();
 
 }
+
+function cartonCallback(body1, body2, fixture1, fixture2, begin) {
+
+    ContactCount += (begin ? 1 : -1);
+    updateCaptions();
+
+}
+
+function updateCaptions() {
+
+    if(ContactCount>0){
+        alert("oula ça touche !!");
+    }
+
+}
+
 function gofull() {
 
     if (game.scale.isFullScreen)
