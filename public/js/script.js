@@ -6,7 +6,6 @@ function preload() {
     game.load.image('room', 'assets/static/room.png');
     game.load.image('carton', 'assets/static/carton.png');
 
-
     var dir = "assets/";
     var fileextension = ".png";
     $.ajax({
@@ -26,8 +25,8 @@ function preload() {
 
 }
 
-function create() {
 
+function create() {
 
     // Enable Box2D physics
     game.physics.startSystem(Phaser.Physics.BOX2D);
@@ -42,7 +41,12 @@ function create() {
     var carton = game.add.sprite(350, 420, 'carton');
     game.physics.box2d.enable(carton);
     carton.body.fixedRotation = true;
+    //carton.setCircle(50);
     carton.body.static = true;
+
+  /*  var obj = game.add.group();
+    obj.enableBody = true;
+    obj.physicsBodyType = Phaser.Physics.BOX2D;*/
 
     // on cree chaque object  !
     $.each(nameObjects, function( index, value ) {
@@ -53,9 +57,13 @@ function create() {
 
         game.physics.box2d.enable(object);
         object.body.angle = 30;
+
+        /*var object = obj.create(Math.floor((Math.random() * game.width) ), Math.floor((Math.random() * game.height) ), value);
+        object.body.setCollisionCategory(2); // this is a bitmask
+        object.body.sensor = true;*/
     });
 
-
+    carton.body.setBodyContactCallback(obj,boxCallback,this);
 
     game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 
@@ -63,7 +71,6 @@ function create() {
     game.input.onDown.add(mouseDragStart, this);
     game.input.addMoveCallback(mouseDragMove, this);
     game.input.onUp.add(mouseDragEnd, this);
-
 
 }
 
@@ -85,7 +92,25 @@ function mouseDragEnd() {
 
 }
 
+function boxCallback(body1, body2, fixture1, fixture2, begin) {
 
+    // This callback is also called for EndContact events, which we are not interested in.
+    if (!begin)
+    {
+        return;
+    }
+
+    // body1 is the ship because it's the body that owns the callback
+    // body2 is the body it impacted with, in this case the health
+    // fixture1 is the fixture of body1 that was touched
+    // fixture2 is the fixture of body2 that was touched
+
+    // Only pick up health when not at full health
+
+        //body2.sprite.destroy();
+    console.log("on est dans le callback");
+
+}
 
 function gofull() {
 
@@ -102,6 +127,6 @@ function gofull() {
 
 function render() {
 
-   // game.debug.box2dWorld();
+   game.debug.box2dWorld();
 
 }
