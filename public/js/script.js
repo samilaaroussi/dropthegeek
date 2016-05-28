@@ -1,6 +1,5 @@
 var game = new Phaser.Game(720, 480, Phaser.CANVAS, 'GameContainer', { preload: preload, create: create , render: render});
 var nameObjects=[];
-var ContactCount = 0;
 
 function preload() {
 
@@ -44,10 +43,6 @@ function create() {
     game.physics.box2d.enable(carton);
     carton.body.fixedRotation = true;
     carton.body.static = true;
-   // carton.SetSensor(true);
-    carton.body.setFixtureContactCallback(carton,  cartonCallback,  this);
-
-
 
     // on cree chaque object  !
     $.each(nameObjects, function( index, value ) {
@@ -90,20 +85,7 @@ function mouseDragEnd() {
 
 }
 
-function cartonCallback(body1, body2, fixture1, fixture2, begin) {
 
-    ContactCount += (begin ? 1 : -1);
-    updateCaptions();
-
-}
-
-function updateCaptions() {
-
-    if(ContactCount>0){
-        alert("oula ça touche !!");
-    }
-
-}
 
 function gofull() {
 
