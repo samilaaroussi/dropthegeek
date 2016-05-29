@@ -44,23 +44,23 @@ function create() {
     //carton.setCircle(50);
     carton.body.static = true;
 
-  /*  var obj = game.add.group();
+    var obj = game.add.group();
     obj.enableBody = true;
-    obj.physicsBodyType = Phaser.Physics.BOX2D;*/
+    obj.physicsBodyType = Phaser.Physics.BOX2D;
 
     // on cree chaque object  !
     $.each(nameObjects, function( index, value ) {
-        var object =  game.add.sprite(Math.floor((Math.random() * game.width) ), Math.floor((Math.random() * game.height) ), value);
+        //var object =  game.add.sprite(Math.floor((Math.random() * game.width) ), Math.floor((Math.random() * game.height) ), value);
 
         //lissage fullscreen mais aliasing ...
         //object.smoothed = false;
 
-        game.physics.box2d.enable(object);
-        object.body.angle = 30;
+       // game.physics.box2d.enable(object);
+       // object.body.angle = 30;
 
-        /*var object = obj.create(Math.floor((Math.random() * game.width) ), Math.floor((Math.random() * game.height) ), value);
-        object.body.setCollisionCategory(2); // this is a bitmask
-        object.body.sensor = true;*/
+        var object = obj.create(Math.floor((Math.random() * game.width) ), Math.floor((Math.random() * game.height) ), value);
+       // object.body.setCollisionCategory(2); // this is a bitmask
+       // object.body.sensor = true;
     });
 
     carton.body.setBodyContactCallback(obj,boxCallback,this);
