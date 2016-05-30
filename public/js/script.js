@@ -50,10 +50,18 @@ function create() {
     var biblio = new Phaser.Physics.Box2D.Body(this.game, null, 915, 400, 100);
     biblio.setPolygon([-40, -120, -40, 200, 80, 200, 80, -120 ]);
 
+    var bordure1 = new Phaser.Physics.Box2D.Body(this.game, null, 320, 250, 100);
+    bordure1.setRectangle(45, 20, 0, 0, 0);
+
+    /*var bordure = new Phaser.Physics.Box2D.Body(this.game, null, 315, 250, 100);
+    bordure.setRectangle(90, 50, 0, 0, 0);*/
+
+
     var boxPokemon = game.add.sprite(550, 610, 'boxPokemon');
     game.physics.box2d.enable(boxPokemon);
     boxPokemon.body.fixedRotation = true;
     boxPokemon.body.static = true;
+
 
     var boxSouthPark = game.add.sprite(220, 610, 'boxSouthPark');
     game.physics.box2d.enable(boxSouthPark);
