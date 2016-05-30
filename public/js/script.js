@@ -5,7 +5,7 @@ var mouseDown = false;
 function preload() {
 
     game.load.image('room', 'assets/static/room.png');
-    game.load.image('carton', 'assets/static/carton.png');
+    game.load.image('boxPokemon', 'assets/static/boxPokemon.png');
 
     var dir = "assets/";
     var fileextension = ".png";
@@ -39,25 +39,10 @@ function create() {
     var biblio = new Phaser.Physics.Box2D.Body(this.game, null, 670, 300, 100);
     biblio.setPolygon([-40, -100, -40, 150, 40, 150, 40, -100 ]);
 
-    var boxPokemon = game.add.sprite(350, 420, 'carton');
+    var boxPokemon = game.add.sprite(350, 420, 'boxPokemon');
     game.physics.box2d.enable(boxPokemon);
     boxPokemon.body.fixedRotation = true;
-    //boxPokemon.setCircle(50);
     boxPokemon.body.static = true;
-
-    /*
-    var pokemon = game.add.group();
-    pokemon.enableBody = true;
-    pokemon.physicsBodyType = Phaser.Physics.BOX2D;
-
-    var nick = game.add.group();
-    nick.enableBody = true;
-    nick.physicsBodyType = Phaser.Physics.BOX2D;
-
-    var notGeek = game.add.group();
-    notGeek.enableBody = true;
-    notGeek.physicsBodyType = Phaser.Physics.BOX2D;
-    */
 
     var obj = game.add.group();
     obj.enableBody = true;
@@ -65,20 +50,6 @@ function create() {
 
     // on cree chaque object  !
     $.each(nameObjects, function( index, value ) {
-
-        /*
-        if(value.includes("pokemon")){
-            var object = pokemon.create(Math.floor((Math.random() * game.width) ), Math.floor((Math.random() * game.height) ), value);
-        }
-        else if(value.includes("nick")){
-            var object = nick.create(Math.floor((Math.random() * game.width) ), Math.floor((Math.random() * game.height) ), value);
-        }
-        else {
-            var object = notGeek.create(Math.floor((Math.random() * game.width) ), Math.floor((Math.random() * game.height) ), value);
-        }
-        object.body.setCollisionCategory(2);
-        */
-
 
         var object = obj.create(Math.floor((Math.random() * game.width) ), Math.floor((Math.random() * game.height) ), value);
         object.body.setCollisionCategory(2);
@@ -124,7 +95,7 @@ function boxCallback(body1, body2, fixture1, fixture2, begin) {
         return;
     }
 
-    if(body1.sprite.key=="carton"){
+    if(body1.sprite.key=="boxPokemon"){
         if(body2.sprite.key.includes("pokemon")){
             if (mouseDown){
                 body2.sprite.destroy();
@@ -170,6 +141,6 @@ function gofull() {
 
 function render() {
 
-   game.debug.box2dWorld();
+   //game.debug.box2dWorld();
 
 }
