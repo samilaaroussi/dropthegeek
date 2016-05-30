@@ -1,5 +1,6 @@
 var game = new Phaser.Game(720, 480, Phaser.CANVAS, 'GameContainer', { preload: preload, create: create , render: render});
 var nameObjects=[];
+var mouseDown = false;
 
 function preload() {
 
@@ -72,12 +73,13 @@ function create() {
     game.input.addMoveCallback(mouseDragMove, this);
     game.input.onUp.add(mouseDragEnd, this);
 
+
 }
 
 function mouseDragStart() {
 
     game.physics.box2d.mouseDragStart(game.input.mousePointer);
-
+    mouseDown=true;
 }
 
 function mouseDragMove() {
@@ -90,6 +92,7 @@ function mouseDragEnd() {
 
     game.physics.box2d.mouseDragEnd();
 
+    mouseDown=false;
 }
 
 function boxCallback(body1, body2, fixture1, fixture2, begin) {
@@ -106,7 +109,12 @@ function boxCallback(body1, body2, fixture1, fixture2, begin) {
     // fixture2 is the fixture of body2 that was touched
 
     // Only pick up health when not at full health
-    body2.sprite.destroy();
+    if (mouseDown){
+        body2.sprite.destroy();
+    }
+
+
+
     console.log("on est dans le callback");
 
 }
