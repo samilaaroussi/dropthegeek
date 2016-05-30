@@ -59,11 +59,11 @@ function create() {
        // object.body.angle = 30;
 
         var object = obj.create(Math.floor((Math.random() * game.width) ), Math.floor((Math.random() * game.height) ), value);
-       // object.body.setCollisionCategory(2); // this is a bitmask
-       // object.body.sensor = true;
+        object.body.setCollisionCategory(2); // this is a bitmask
+        //object.body.sensor = true;
     });
 
-    carton.body.setBodyContactCallback(obj,boxCallback,this);
+    carton.body.setCategoryContactCallback(2,boxCallback,this);
 
     game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 
@@ -106,8 +106,7 @@ function boxCallback(body1, body2, fixture1, fixture2, begin) {
     // fixture2 is the fixture of body2 that was touched
 
     // Only pick up health when not at full health
-
-        //body2.sprite.destroy();
+    body2.sprite.destroy();
     console.log("on est dans le callback");
 
 }
