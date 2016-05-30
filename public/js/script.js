@@ -72,6 +72,7 @@ function create() {
     });
 
     boxPokemon.body.setCategoryContactCallback(2,boxCallback,this);
+    boxSouthPark.body.setCategoryContactCallback(2,boxCallback,this);
 
     game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 
@@ -124,6 +125,7 @@ function boxCallback(body1, body2, fixture1, fixture2, begin) {
             if (mouseDown){
                 south++;
                 body2.sprite.destroy();
+                console.log("southhh")
             }
         }
     }
