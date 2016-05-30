@@ -45,23 +45,34 @@ function create() {
     //carton.setCircle(50);
     carton.body.static = true;
 
-    var obj = game.add.group();
-    obj.enableBody = true;
-    obj.physicsBodyType = Phaser.Physics.BOX2D;
+    var pokemon = game.add.group();
+    pokemon.enableBody = true;
+    pokemon.physicsBodyType = Phaser.Physics.BOX2D;
+
+    var nick = game.add.group();
+    nick.enableBody = true;
+    nick.physicsBodyType = Phaser.Physics.BOX2D;
+
+    var notGeek = game.add.group();
+    notGeek.enableBody = true;
+    notGeek.physicsBodyType = Phaser.Physics.BOX2D;
 
     // on cree chaque object  !
     $.each(nameObjects, function( index, value ) {
-        //var object =  game.add.sprite(Math.floor((Math.random() * game.width) ), Math.floor((Math.random() * game.height) ), value);
 
-        //lissage fullscreen mais aliasing ...
-        //object.smoothed = false;
+        if(value.includes("pokemon")){
+            var object = pokemon.create(Math.floor((Math.random() * game.width) ), Math.floor((Math.random() * game.height) ), value);
+            object.body.setCollisionCategory(1);
+        }
+        else if(value.includes("nick")){
+            var object = nick.create(Math.floor((Math.random() * game.width) ), Math.floor((Math.random() * game.height) ), value);
+            object.body.setCollisionCategory(2);
+        }
+        else if(value.includes("notGeek")){
+            var object = notGeek.create(Math.floor((Math.random() * game.width) ), Math.floor((Math.random() * game.height) ), value);
+            object.body.setCollisionCategory(3);
+        }
 
-       // game.physics.box2d.enable(object);
-       // object.body.angle = 30;
-
-        var object = obj.create(Math.floor((Math.random() * game.width) ), Math.floor((Math.random() * game.height) ), value);
-        object.body.setCollisionCategory(2); // this is a bitmask
-        //object.body.sensor = true;
     });
 
     carton.body.setCategoryContactCallback(2,boxCallback,this);
@@ -103,6 +114,8 @@ function boxCallback(body1, body2, fixture1, fixture2, begin) {
         return;
     }
 
+
+    console.log(body1,body2);
     // body1 is the ship because it's the body that owns the callback
     // body2 is the body it impacted with, in this case the health
     // fixture1 is the fixture of body1 that was touched
