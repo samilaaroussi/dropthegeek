@@ -10,7 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.13.4",
-    "glob-all": "^3.0.3",
     "serve-index": "^1.7.3"
   }
 }
