@@ -1,6 +1,7 @@
 var game = new Phaser.Game(1000, 667, Phaser.CANVAS, 'GameContainer', { preload: preload, create: create , render: render});
 var nameObjects=[];
 var mouseDown = false;
+var text1;
 var south = 0;
 var poke = 0;
 
@@ -40,9 +41,9 @@ function create() {
     room.smoothed = false;
 
 
-    var text1 = game.add.text(20, 50, "Shadow Stroke", { font: "74px Arial Black", fill: "#FF0000" });
+    text1 = game.add.text(20, 120, "South Park : 0 Pokemon : 0", { font: "34px Arial Black", fill: "#FF0000" });
     text1.stroke = "#800000";
-    text1.strokeThickness = 16;
+    text1.strokeThickness = 10;
     //  Apply the shadow to the Stroke only
     text1.setShadow(2, 2, "#333333", 2, true, false);
 
@@ -115,6 +116,7 @@ function boxCallback(body1, body2, fixture1, fixture2, begin) {
         if(body2.sprite.key.includes("pokemon")){
             if (mouseDown){
                 poke++;
+                inTheBox(text1);
                 body2.sprite.destroy();
             }
         }
@@ -124,20 +126,11 @@ function boxCallback(body1, body2, fixture1, fixture2, begin) {
         if(body2.sprite.key.includes("south")){
             if (mouseDown){
                 south++;
+                inTheBox(text1);
                 body2.sprite.destroy();
-                console.log("southhh")
             }
         }
     }
-
-
-
-
-
-
-
-
-
 
     // body1 is the ship because it's the body that owns the callback
     // body2 is the body it impacted with, in this case the health
@@ -148,6 +141,11 @@ function boxCallback(body1, body2, fixture1, fixture2, begin) {
 
 
 
+
+}
+
+function inTheBox(item) {
+    item.text = "South Park : " + south + " Pokemon : "+poke;
 
 }
 
