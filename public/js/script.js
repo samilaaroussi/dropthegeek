@@ -32,6 +32,7 @@ function preload() {
 
 
 function create() {
+    var box =[];
 
     // Enable Box2D physics
     game.physics.startSystem(Phaser.Physics.BOX2D);
@@ -77,12 +78,23 @@ function create() {
     game.physics.box2d.enable(boxPokemon);
     boxPokemon.body.fixedRotation = true;
     boxPokemon.body.static = true;
-
+    box.push(boxPokemon);
 
     var boxSouthPark = game.add.sprite(220, 610, 'boxSouthPark');
     game.physics.box2d.enable(boxSouthPark);
     boxSouthPark.body.fixedRotation = true;
     boxSouthPark.body.static = true;
+    box.push(boxSouthPark);
+
+
+
+    box.forEach(function(box) {
+
+        box.visible = false;
+        game.time.events.add(0, this.showPicture, this, box);
+
+    });
+
 
     var obj = game.add.group();
     obj.enableBody = true;
@@ -105,6 +117,8 @@ function create() {
     game.input.onDown.add(mouseDragStart, this);
     game.input.addMoveCallback(mouseDragMove, this);
     game.input.onUp.add(mouseDragEnd, this);
+
+
 
 
 }
@@ -173,6 +187,21 @@ function inTheBox(item) {
 
 }
 
+
+function showPicture(box, index) {
+
+    box[index].visible=true;
+    game.time.events.add(2000, this.removePicture, this, box);
+
+}
+
+function removePicture(box, ind) {
+
+    box.visible = false;
+    game.time.events.add(2000, this.showPicture, this, box);
+
+}
+
 function gofull() {
 
     if (game.scale.isFullScreen)
@@ -188,6 +217,6 @@ function gofull() {
 
 function render() {
 
-   game.debug.box2dWorld();
+   //game.debug.box2dWorld();
 
 }
