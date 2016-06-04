@@ -5,7 +5,6 @@ var text1;
 var south = 0;
 var poke = 0;
 
-
 function preload() {
 
     game.load.image('room', 'assets/static/room.png');
@@ -32,7 +31,7 @@ function preload() {
 
 
 function create() {
-    var box =[];
+    var tabBox =[];
 
     // Enable Box2D physics
     game.physics.startSystem(Phaser.Physics.BOX2D);
@@ -78,20 +77,20 @@ function create() {
     game.physics.box2d.enable(boxPokemon);
     boxPokemon.body.fixedRotation = true;
     boxPokemon.body.static = true;
-    box.push(boxPokemon);
+    tabBox.push(boxPokemon);
 
     var boxSouthPark = game.add.sprite(220, 610, 'boxSouthPark');
     game.physics.box2d.enable(boxSouthPark);
     boxSouthPark.body.fixedRotation = true;
     boxSouthPark.body.static = true;
-    box.push(boxSouthPark);
+    tabBox.push(boxSouthPark);
 
 
 
-    box.forEach(function(box) {
+    tabBox.forEach(function(value) {
 
-        box.visible = false;
-        game.time.events.add(0, this.showPicture, this, box);
+        value.visible = false;
+        game.time.events.add(0, this.showPicture, this, value,tabBox,0);
 
     });
 
@@ -117,9 +116,6 @@ function create() {
     game.input.onDown.add(mouseDragStart, this);
     game.input.addMoveCallback(mouseDragMove, this);
     game.input.onUp.add(mouseDragEnd, this);
-
-
-
 
 }
 
@@ -188,19 +184,25 @@ function inTheBox(item) {
 }
 
 
-function showPicture(box, index) {
+function showPicture(box, tabBox,index) {
 
-    box[index].visible=true;
-    game.time.events.add(2000, this.removePicture, this, box);
+
+    console.log(tabBox[index].key);
+    tabBox[index].x=100;
+    console.log(tabBox[index].x);
+    tabBox[index].visible = false;
+
+
+    index++;
+    if(index==tabBox.length){
+        index=0;
+    }
+    tabBox[index].visible =true;
+    game.time.events.add(2000, this.showPicture, this, box, tabBox,index);
 
 }
 
-function removePicture(box, ind) {
 
-    box.visible = false;
-    game.time.events.add(2000, this.showPicture, this, box);
-
-}
 
 function gofull() {
 
@@ -217,6 +219,6 @@ function gofull() {
 
 function render() {
 
-   //game.debug.box2dWorld();
+   game.debug.box2dWorld();
 
 }
