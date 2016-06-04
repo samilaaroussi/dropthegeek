@@ -36,22 +36,38 @@ function create() {
     // Enable Box2D physics
     game.physics.startSystem(Phaser.Physics.BOX2D);
     game.physics.box2d.setBoundsToWorld();
-    game.physics.box2d.gravity.y = 500;
+    game.physics.box2d.gravity.y = 800;
     var room = game.add.sprite(0, 0, 'room');
     room.smoothed = false;
 
+    // Stretch to fill
+    //game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 
-    text1 = game.add.text(20, 120, "South Park : 0 Pokemon : 0", { font: "34px Arial Black", fill: "#FF0000" });
-    text1.stroke = "#800000";
-    text1.strokeThickness = 10;
+    // Keep original size
+    // game.scale.fullScreenScaleMode = Phaser.ScaleManager.NO_SCALE;
+
+    // Maintain aspect ratio
+    //game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
+
+    //game.input.onUp.add(gofull, this);
+
+    text1 = game.add.text(670, 40, "South Park : 0 Pokemon : 0", { font: "21px Arial", fill: "#FFFFFF" });
+    text1.stroke = "#333333";
+    text1.strokeThickness = 5;
     //  Apply the shadow to the Stroke only
-    text1.setShadow(2, 2, "#333333", 2, true, false);
+    //text1.setShadow(2, 2, "#333333", 2, true, false);
 
     var biblio = new Phaser.Physics.Box2D.Body(this.game, null, 915, 400, 100);
     biblio.setPolygon([-40, -120, -40, 200, 80, 200, 80, -120 ]);
 
-    var bordure1 = new Phaser.Physics.Box2D.Body(this.game, null, 320, 250, 100);
-    bordure1.setRectangle(45, 20, 0, 0, 0);
+    var etagere1 = new Phaser.Physics.Box2D.Body(this.game, null, 320, 250, 100);
+    etagere1.setRectangle(45, 10, 0, 0, 0);
+
+    var etagere2 = new Phaser.Physics.Box2D.Body(this.game, null, 320, 250, 100);
+    etagere2.setRectangle(45, 10, 0, 130, 0);
+
+    var ventilo = new Phaser.Physics.Box2D.Body(this.game, null, 320, 250, 100);
+    ventilo.setRectangle(183, 5, 176, -72, 0);
 
     /*var bordure = new Phaser.Physics.Box2D.Body(this.game, null, 315, 250, 100);
     bordure.setRectangle(90, 50, 0, 0, 0);*/
@@ -83,7 +99,7 @@ function create() {
     boxPokemon.body.setCategoryContactCallback(2,boxCallback,this);
     boxSouthPark.body.setCategoryContactCallback(2,boxCallback,this);
 
-    game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
+    //game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 
     // Set up handlers for mouse events
     game.input.onDown.add(mouseDragStart, this);
@@ -165,7 +181,7 @@ function gofull() {
     }
     else
     {
-        game.scale.startFullScreen(false);
+        game.scale.startFullScreen(true);
     }
 
 }
