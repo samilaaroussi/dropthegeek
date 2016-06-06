@@ -2,7 +2,7 @@ var express = require('express');
 var serveIndex = require('serve-index');
 
 var app = express();
-var serverPort = 3000;
+var serverPort = process.env.PORT ||3000;
 
 
 app.use(express.static(__dirname + '/public/'));
