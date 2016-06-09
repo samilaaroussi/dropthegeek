@@ -5,6 +5,7 @@ var text1;
 var south = 0;
 var poke = 0;
 var trash = 0;
+var counter = 0;
 
 
 function preload() {
@@ -57,6 +58,12 @@ function create() {
     text1 = game.add.text(570, 100, "South Park : 0 Pokemon : 0 Pas Geek : 0", { font: "21px Arial", fill: "#FFFFFF" });
     text1.stroke = "#333333";
     text1.strokeThickness = 5;
+
+    text2 = game.add.text(570, 130, "Temps : " + counter, { font: "21px Arial", fill: "#FFFFFF" });
+    text2.stroke = "#333333";
+    text2.strokeThickness = 5;
+
+
 
     var biblio = new Phaser.Physics.Box2D.Body(this.game, null, 915, 400, 100);
     biblio.setPolygon([-40, -120, -40, 200, 80, 200, 80, -120 ]);
@@ -112,7 +119,8 @@ function create() {
     game.input.onDown.add(mouseDragStart, this);
     game.input.addMoveCallback(mouseDragMove, this);
     game.input.onUp.add(mouseDragEnd, this);
-
+    //timer
+    game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
 
 }
 
@@ -193,6 +201,15 @@ function boxCallback(body1, body2, fixture1, fixture2, begin) {
 function inTheBox(item) {
 
     item.text = "South Park : " + south + " Pokemon : " + poke + " Pas Geek : "+ trash;
+
+}
+
+
+function updateCounter() {
+
+    counter++;
+
+    text2.setText('Temps : ' + counter);
 
 }
 
