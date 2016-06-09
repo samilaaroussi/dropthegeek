@@ -1,20 +1,130 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <title>Born to be a Geek !</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <script type="text/javascript" src="lib/jquery-2.2.4.min.js"></script>
-    <script src="lib/bootstrap.min.js"></script>
-    <script src="//cdn.jsdelivr.net/phaser/2.4.8/phaser.min.js"></script>
-    <script src="lib/box2d-plugin-full.js"></script>
-    <script type="text/javascript" src="js/script.js"></script>
+    <!-- Latest compiled and minified CSS -->
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://talkslab.github.io/metro-bootstrap/dist/css/metro-bootstrap.min.css">
+    <script type="text/javascript" src="lib/jquery-2.2.4.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://talkslab.github.io/metro-bootstrap/dist/css/metro-bootstrap.min.css"></script>
+    <link rel="stylesheet" href="css/styles.css">
 
 </head>
 <body>
-    <div id="GameContainer" style="margin: 0 auto"></div>
+    <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Born to be a Geek</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-right navbar-nav">
+                    <li>
+                        <a href="index.html">Accueil</a>
+                    </li>
+                    <li>
+                        <a href="cours.html">Cours</a>
+                    </li>
+                    <li>
+                        <a href="#">Profil</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="grid">
+            <div class="row">
+                <div class="tile tile-room col-md-4 col-xs-12">
+                    <div class="tile-content">
+                        <div class="tile-icon-large">
+                            <a href="room.html">
+                                <h1><i class="glyphicon glyphicon-question"></i></h1>
+                            </a>
+                        </div>
+                    </div>
 
+                        <span class="tile-label">Range ta chambre !</span>
+                    <a href="room.html">
+                    </a>
+                </div>
+                <div class="tile tile-geek col-md-4 col-xs-12">
+
+                    <div class="tile-content">
+                        <div class="tile-icon-large">
+                            <a href="quiz.html">
+                                <h1><i class="glyphicon glyphicon-question"></i></h1>
+                            </a>
+                        </div>
+                    </div>
+                        <span class="tile-label">Geeky Quizz !</a></span>
+
+                </div>
+                <div class="tile tile-amethyst col-md-4 col-xs-12">
+                    <div class="tile-content">
+                        <div class="tile-icon-large">
+                            <h1><i class="glyphicon glyphicon-user"></i></h1>
+                        </div>
+                    </div>
+                    <span class="tile-label">Profil</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="tile tile-danger col-md-4 col-xs-12">
+                    <div class="tile-content">
+                        <div class="tile-icon-large">
+                            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+                                <h1><i class="glyphicon glyphicon-play-circle"></i></h1>
+                            </a>
+                        </div>
+                    </div>
+                    <span class="tile-label">Vidéo de Présentation</span>
+                </div>
+                <div class="tile tile-green col-md-4 col-xs-12">
+                        <div class="tile-content">
+                            <div class="tile-icon-large">
+                                <a href="cours.html" >
+
+                                <h1><i class="glyphicon glyphicon-blackboard"></i></h1>
+                                </a>
+
+                            </div>
+                        </div>
+                        <span class="tile-label">Cours</span>
+                </div>
+                <div class="tile tile-clouds col-md-4 col-xs-12">
+
+                    <div class="tile-content">
+                        <div class="tile-icon-large">
+                            <a href="http://www.univ-lyon1.fr" >
+                            <img src="assets/ucbl.png">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <hr>
+            <p class="text-muted">Copyright © 2016 - <a href="http://www.univ-lyon1.fr">Born to be a Geek</a> - Tout droits réservés.</p>
+        </div>
+    </footer>
 </body>
 </html>

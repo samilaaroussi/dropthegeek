@@ -170,9 +170,9 @@ function boxCallback(body1, body2, fixture1, fixture2, begin) {
         console.log("zoinzoin");
         if (mouseDown){
 
-                trash++;
-                inTheBox(text1);
-                body2.sprite.destroy();
+            trash++;
+            inTheBox(text1);
+            body2.sprite.destroy();
 
         }
 
@@ -211,6 +211,6 @@ function gofull() {
 
 function render() {
 
-   //game.debug.box2dWorld();
+    //game.debug.box2dWorld();
 
 }
