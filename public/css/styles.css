@@ -1,3 +1,7 @@
+p {
+    text-align: justify;
+}
+
 .navbar-inverse {
     background: #0d2740;
     color: #fff;
