@@ -7,7 +7,6 @@ var poke = 0;
 var trash = 0;
 var counter = 0;
 
-
 function preload() {
 
     game.load.image('room', 'assets/static/room.png');
