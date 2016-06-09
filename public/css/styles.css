@@ -1,5 +1,6 @@
 .navbar-inverse {
     background: #0d2740;
+    color: #fff;
 }
 
 .navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus {
@@ -27,7 +28,7 @@
     border-bottom: 1px solid #ddd;
 }
 
-.col-md-4 {
+.grid .col-md-4 {
 
     min-height: 150px !important;
 }
