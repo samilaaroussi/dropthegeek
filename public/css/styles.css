@@ -26,6 +26,11 @@ p {
     text-align: center;
 }
 
+.big {
+   font-size: 72px;
+   font-weight: bold;
+}
+
 .list-group-item {
     background: transparent;
     border: none;
