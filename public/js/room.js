@@ -147,7 +147,7 @@ function create() {
 
 
     // Create a label to use as a button
-    var w =game.width;
+    var w = game.width;
     var h = game.height;
 
     var bar = game.add.graphics();
@@ -162,7 +162,8 @@ function create() {
 
         bar2 = game.add.graphics();
         bar2.beginFill(0x000000, 0.7);
-        bar2.drawRect(0,0, w, h);
+        bar2.drawRect(0,0, game.width, game.height);
+        document.location.href="profil.html";
 
         // Then add the menu
         menu = game.add.sprite(w/2, h/2, 'menu');
@@ -312,6 +313,7 @@ function boxCallback(body1, body2, fixture1, fixture2, begin) {
 
     }
 
+    //Fin de la partie
     if(nameObjects.length==0){
         var fin = game.add.graphics();
         fin.beginFill(0x000000, 0.7);
@@ -328,6 +330,7 @@ function storage() {
     {
         "southpark": south,
         "pokemon": poke,
+        "mario": mario,
         "trash": trash,
         "counter": counter
     }
