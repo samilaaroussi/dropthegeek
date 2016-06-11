@@ -163,7 +163,6 @@ function create() {
         bar2 = game.add.graphics();
         bar2.beginFill(0x000000, 0.7);
         bar2.drawRect(0,0, game.width, game.height);
-        document.location.href="profil.html";
 
         // Then add the menu
         menu = game.add.sprite(w/2, h/2, 'menu');
