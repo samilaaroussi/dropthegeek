@@ -4,7 +4,13 @@ var mouseDown = false;
 var text1;
 var south = 0;
 var poke = 0;
+var mario = 0;
 var trash = 0;
+var trashText = 0;
+var marioText = 0;
+var marvelText = 0;
+var southText = 0;
+var pokemonText = 0;
 var counter = 0;
 
 function preload() {
@@ -13,6 +19,7 @@ function preload() {
     game.load.image('boxPokemon', 'assets/static/boxPokemon.png');
     game.load.image('boxSouthPark', 'assets/static/boxSouthPark.png');
     game.load.image('boxMarvel', 'assets/static/boxMarvel.png');
+    game.load.image('boxMario', 'assets/static/boxMario.png');
     game.load.image('trash', 'assets/static/trash.png');
     game.load.audio('tetris', ['assets/audio/tetris.mp3', 'assets/audio/bodenstaendig_2000_in_rock_4bit.ogg']);
     game.load.image('menu', 'assets/button.png', 270, 180);
@@ -50,13 +57,29 @@ function create() {
 
 
 
-    text1 = game.add.text(570, 100, "South Park : 0 Pokemon : 0 Pas Geek : 0", { font: "21px Arial", fill: "#FFFFFF" });
-    text1.stroke = "#333333";
-    text1.strokeThickness = 5;
+    trashText = game.add.text(65, 640, " 0", { font: "21px Arial", fill: "#FFFFFF" });
+    trashText.stroke = "#333333";
+    trashText.strokeThickness = 5;
 
-    text2 = game.add.text(570, 130, "Temps : " + counter, { font: "21px Arial", fill: "#FFFFFF" });
-    text2.stroke = "#333333";
-    text2.strokeThickness = 5;
+    pokemonText = game.add.text(590, 640, "0", { font: "21px Arial", fill: "#FFFFFF" });
+    pokemonText.stroke = "#333333";
+    pokemonText.strokeThickness = 5;
+
+    southText = game.add.text(190, 640, "0", { font: "21px Arial", fill: "#FFFFFF" });
+    southText.stroke = "#333333";
+    southText.strokeThickness = 5;
+
+    marioText = game.add.text(790, 640, "0", { font: "21px Arial", fill: "#FFFFFF" });
+    marioText.stroke = "#333333";
+    marioText.strokeThickness = 5;
+
+    marvelText = game.add.text(390, 640, "0", { font: "21px Arial", fill: "#FFFFFF" });
+    marvelText.stroke = "#333333";
+    marvelText.strokeThickness = 5;
+
+    time = game.add.text(game.height, 130, "Temps : " + counter, { font: "21px Arial", fill: "#FFFFFF" });
+    time.stroke = "#333333";
+    time.strokeThickness = 5;
 
 
 
@@ -72,12 +95,12 @@ function create() {
     var ventilo = new Phaser.Physics.Box2D.Body(this.game, null, 320, 250, 100);
     ventilo.setRectangle(183, 5, 176, -72, 0);
 
-    var boxPokemon = game.add.sprite(550, 610, 'boxPokemon');
+    var boxPokemon = game.add.sprite(600, 610, 'boxPokemon');
     game.physics.box2d.enable(boxPokemon);
     boxPokemon.body.fixedRotation = true;
     boxPokemon.body.static = true;
 
-    var boxSouthPark = game.add.sprite(220, 610, 'boxSouthPark');
+    var boxSouthPark = game.add.sprite(200, 610, 'boxSouthPark');
     game.physics.box2d.enable(boxSouthPark);
     boxSouthPark.body.fixedRotation = true;
     boxSouthPark.body.static = true;
@@ -87,10 +110,15 @@ function create() {
     boxMarvel.body.fixedRotation = true;
     boxMarvel.body.static = true;
 
-    var trash = game.add.sprite(80, 610, 'trash');
+    var trash = game.add.sprite(80, 605, 'trash');
     game.physics.box2d.enable(trash);
     trash.body.fixedRotation = true;
     trash.body.static = true;
+
+    var boxMario = game.add.sprite(800, 610, 'boxMario');
+    game.physics.box2d.enable(boxMario);
+    boxMario.body.fixedRotation = true;
+    boxMario.body.static = true;
 
     var obj = game.add.group();
     obj.enableBody = true;
@@ -99,7 +127,7 @@ function create() {
     // on cree chaque object  !
     $.each(nameObjects, function( index, value ) {
 
-        var object = obj.create(Math.floor((Math.random() * game.width) ), Math.floor((Math.random() * game.height) ), value);
+        var object = obj.create(Math.floor((Math.random() * game.width-100) ), Math.floor((Math.random() * game.height-100) ), value);
         object.body.setCollisionCategory(2);
 
     });
@@ -107,8 +135,8 @@ function create() {
     boxPokemon.body.setCategoryContactCallback(2,boxCallback,this);
     boxSouthPark.body.setCategoryContactCallback(2,boxCallback,this);
     trash.body.setCategoryContactCallback(2,boxCallback,this);
+    boxMario.body.setCategoryContactCallback(2,boxCallback,this);
 
-    //game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 
     // Set up handlers for mouse events
     game.input.onDown.add(mouseDragStart, this);
@@ -116,7 +144,6 @@ function create() {
     game.input.onUp.add(mouseDragEnd, this);
     //timer
     game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
-    //game.input.onUp.add(gofull, this);
 
 
     // Create a label to use as a button
@@ -197,6 +224,7 @@ function mouseDragStart() {
 
     game.physics.box2d.mouseDragStart(game.input.mousePointer);
     mouseDown=true;
+
 }
 
 function mouseDragMove() {
@@ -208,8 +236,8 @@ function mouseDragMove() {
 function mouseDragEnd() {
 
     game.physics.box2d.mouseDragEnd();
-
     mouseDown=false;
+
 }
 
 function boxCallback(body1, body2, fixture1, fixture2, begin) {
@@ -224,15 +252,13 @@ function boxCallback(body1, body2, fixture1, fixture2, begin) {
         if(body2.sprite.key.includes("pokemon")){
             if (mouseDown){
                 poke++;
-                inTheBox(text1);
+                inTheBox(pokemonText,poke);
 
                 var i = nameObjects.indexOf(body2.sprite.key);
                 if(i != -1) {
                     nameObjects.splice(i, 1);
                 }
                 body2.sprite.destroy();
-
-
 
             }
         }
@@ -245,7 +271,23 @@ function boxCallback(body1, body2, fixture1, fixture2, begin) {
             if (mouseDown){
 
                 south++;
-                inTheBox(text1);
+                inTheBox(southText,south);
+                var i = nameObjects.indexOf(body2.sprite.key);
+                if(i != -1) {
+                    nameObjects.splice(i, 1);
+                }
+                body2.sprite.destroy();
+
+            }
+        }
+    }
+    if(body1.sprite.key=="boxMario"){
+        if(body2.sprite.key.includes("mario")){
+
+            if (mouseDown){
+
+                mario++;
+                inTheBox(marioText,mario);
                 var i = nameObjects.indexOf(body2.sprite.key);
                 if(i != -1) {
                     nameObjects.splice(i, 1);
@@ -259,7 +301,7 @@ function boxCallback(body1, body2, fixture1, fixture2, begin) {
         if (mouseDown){
 
             trash++;
-            inTheBox(text1);
+            inTheBox(trashText,trash);
             var i = nameObjects.indexOf(body2.sprite.key);
             if(i != -1) {
                 nameObjects.splice(i, 1);
@@ -277,16 +319,7 @@ function boxCallback(body1, body2, fixture1, fixture2, begin) {
         storage();
     }
 
-
-    // body1 is the ship because it's the body that owns the callback
-    // body2 is the body it impacted with, in this case the health
-    // fixture1 is the fixture of body1 that was touched
-    // fixture2 is the fixture of body2 that was touched
-
-    // Only pick up health when not at full health
-
-
-
+ 
 
 }
 function storage() {
@@ -305,9 +338,9 @@ function storage() {
     // var obj = JSON.parse(sessionStorage.profil);
 }
 
-function inTheBox(item) {
+function inTheBox(item,value) {
 
-    item.text = "South Park : " + south + " Pokemon : " + poke + " Pas Geek : "+ trash;
+    item.text = value;
 
 }
 
@@ -316,7 +349,7 @@ function updateCounter() {
 
     counter++;
 
-    text2.setText('Temps : ' + counter);
+    time.setText('Temps : ' + counter);
 
 }
 
