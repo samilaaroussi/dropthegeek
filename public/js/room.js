@@ -56,8 +56,8 @@ function create() {
     game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
     music = game.add.audio('tetris');
 
-    music.play()
-
+    music.play();
+    music.volume = 0.2;
 
     trashText = game.add.text(25, 640, " 0", { font: "21px Arial", fill: "#FFFFFF" });
     trashText.stroke = "#333333";
@@ -120,6 +120,11 @@ function create() {
     boxMario.body.fixedRotation = true;
     boxMario.body.static = true;
 
+    boxPokemon.body.setCategoryContactCallback(2,boxCallback,this);
+    boxSouthPark.body.setCategoryContactCallback(2,boxCallback,this);
+    trash.body.setCategoryContactCallback(2,boxCallback,this);
+    boxMario.body.setCategoryContactCallback(2,boxCallback,this);
+
     var obj = game.add.group();
     obj.enableBody = true;
     obj.physicsBodyType = Phaser.Physics.BOX2D;
@@ -132,10 +137,6 @@ function create() {
 
     });
 
-    boxPokemon.body.setCategoryContactCallback(2,boxCallback,this);
-    boxSouthPark.body.setCategoryContactCallback(2,boxCallback,this);
-    trash.body.setCategoryContactCallback(2,boxCallback,this);
-    boxMario.body.setCategoryContactCallback(2,boxCallback,this);
 
 
     // Set up handlers for mouse events
