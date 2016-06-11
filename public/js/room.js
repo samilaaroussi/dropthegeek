@@ -57,7 +57,7 @@ function create() {
 
 
 
-    trashText = game.add.text(65, 640, " 0", { font: "21px Arial", fill: "#FFFFFF" });
+    trashText = game.add.text(25, 640, " 0", { font: "21px Arial", fill: "#FFFFFF" });
     trashText.stroke = "#333333";
     trashText.strokeThickness = 5;
 
@@ -77,11 +77,9 @@ function create() {
     marvelText.stroke = "#333333";
     marvelText.strokeThickness = 5;
 
-    time = game.add.text(game.height, 130, "Temps : " + counter, { font: "21px Arial", fill: "#FFFFFF" });
+    time = game.add.text(game.width-200, 110, "Temps : " + counter, { font: "21px Arial", fill: "#FFFFFF" });
     time.stroke = "#333333";
     time.strokeThickness = 5;
-
-
 
     var biblio = new Phaser.Physics.Box2D.Body(this.game, null, 915, 400, 100);
     biblio.setPolygon([-40, -120, -40, 200, 80, 200, 80, -120 ]);
@@ -110,7 +108,7 @@ function create() {
     boxMarvel.body.fixedRotation = true;
     boxMarvel.body.static = true;
 
-    var trash = game.add.sprite(80, 605, 'trash');
+    var trash = game.add.sprite(40, 605, 'trash');
     game.physics.box2d.enable(trash);
     trash.body.fixedRotation = true;
     trash.body.static = true;
@@ -169,7 +167,7 @@ function create() {
         menu.anchor.setTo(0.5, 0.5);
 
         // And a label to illustrate which menu item was chosen. (This is not necessary)
-        choiseLabel = game.add.text(w/2, h-150, 'cliquez en dehors du menu pour continuer', { font: '30px Arial', fill: '#fff' });
+        choiseLabel = game.add.text(w/2, h-150, 'Cliquez en dehors du menu pour continuer', { font: '30px Arial', fill: '#fff' });
         choiseLabel.anchor.setTo(0.5, 0.5);
     });
 
