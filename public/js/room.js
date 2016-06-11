@@ -14,6 +14,9 @@ function preload() {
     game.load.image('boxSouthPark', 'assets/static/boxSouthPark.png');
     game.load.image('boxMarvel', 'assets/static/boxMarvel.png');
     game.load.image('trash', 'assets/static/trash.png');
+    game.load.audio('tetris', ['assets/audio/tetris.mp3', 'assets/audio/bodenstaendig_2000_in_rock_4bit.ogg']);
+    game.load.image('menu', 'assets/button.png', 270, 180);
+
 
     var dir = "assets/";
     var fileextension = ".png";
@@ -43,16 +46,9 @@ function create() {
     var room = game.add.sprite(0, 0, 'room');
     room.smoothed = false;
 
-    // Stretch to fill
-    //game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
+    game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 
-    // Keep original size
-    // game.scale.fullScreenScaleMode = Phaser.ScaleManager.NO_SCALE;
 
-    // Maintain aspect ratio
-    //game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
-
-    //game.input.onUp.add(gofull, this);
 
     text1 = game.add.text(570, 100, "South Park : 0 Pokemon : 0 Pas Geek : 0", { font: "21px Arial", fill: "#FFFFFF" });
     text1.stroke = "#333333";
@@ -120,6 +116,79 @@ function create() {
     game.input.onUp.add(mouseDragEnd, this);
     //timer
     game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
+    //game.input.onUp.add(gofull, this);
+
+
+    // Create a label to use as a button
+    var w =game.width;
+    var h = game.height;
+
+    var bar = game.add.graphics();
+    bar.beginFill(0x000000, 0.7);
+    bar.drawRect(0, 0, w, 40);
+    pause_label = game.add.text(w - 100, 10, 'Menu', { font: '24px Arial', fill: '#fff' });
+    pause_label.inputEnabled = true;
+    pause_label.events.onInputUp.add(function () {
+        // When the paus button is pressed, we pause the game
+        game.paused = true;
+
+        var bar2 = game.add.graphics();
+        bar.beginFill(0x000000, 0.7);
+        bar.drawRect(0, 0, w, 40);
+
+        // Then add the menu
+        menu = game.add.sprite(w/2, h/2, 'menu');
+        menu.anchor.setTo(0.5, 0.5);
+
+        // And a label to illustrate which menu item was chosen. (This is not necessary)
+        choiseLabel = game.add.text(w/2, h-150, 'cliquez en dehors du menu pour continuer', { font: '30px Arial', fill: '#fff' });
+        choiseLabel.anchor.setTo(0.5, 0.5);
+    });
+
+    // Add a input listener that can help us return from being paused
+    game.input.onDown.add(unpause, self);
+
+    function unpause(event){
+        // Only act if paused
+        if(game.paused){
+            // Calculate the corners of the menu
+            var x1 = w/2 - 270/2, x2 = w/2 + 270/2,
+                y1 = h/2 - 180/2, y2 = h/2 + 180/2;
+
+            // Check if the click was inside the menu
+            if(event.x > x1 && event.x < x2 && event.y > y1 && event.y < y2 ){
+                // The choicemap is an array that will help us see which item was clicked
+
+                // Get menu local coordinates for the click
+                var x = event.x - x1,
+                    y = event.y - y1;
+
+                // Calculate the choice
+                var choise = Math.floor(x / 90) + 3*Math.floor(y / 90);
+
+                if(choise<3){
+                    choise ="fullsreen";
+                    gofull();
+
+                }else{
+                    choise = "quit";
+                    document.location.href="index.html"
+
+                }
+                // Display the choice
+                choiseLabel.text = 'You chose menu item: ' + choise;
+
+            }
+            else{
+                // Remove the menu and the label
+                menu.destroy();
+                choiseLabel.destroy();
+
+                // Unpause the game
+                game.paused = false;
+            }
+        }
+    };
 
 }
 
@@ -155,7 +224,15 @@ function boxCallback(body1, body2, fixture1, fixture2, begin) {
             if (mouseDown){
                 poke++;
                 inTheBox(text1);
+
+                var i = nameObjects.indexOf(body2.sprite.key);
+                if(i != -1) {
+                    nameObjects.splice(i, 1);
+                }
                 body2.sprite.destroy();
+
+
+
             }
         }
     }
@@ -168,22 +245,34 @@ function boxCallback(body1, body2, fixture1, fixture2, begin) {
 
                 south++;
                 inTheBox(text1);
+                var i = nameObjects.indexOf(body2.sprite.key);
+                if(i != -1) {
+                    nameObjects.splice(i, 1);
+                }
                 body2.sprite.destroy();
 
             }
         }
     }
     if(body1.sprite.key=="trash"){
-        console.log("zoinzoin");
         if (mouseDown){
 
             trash++;
             inTheBox(text1);
+            var i = nameObjects.indexOf(body2.sprite.key);
+            if(i != -1) {
+                nameObjects.splice(i, 1);
+            }
             body2.sprite.destroy();
 
         }
 
     }
+
+    if(nameObjects.length==0){
+        alert("vasy la on est vide");
+    }
+
 
     // body1 is the ship because it's the body that owns the callback
     // body2 is the body it impacted with, in this case the health
