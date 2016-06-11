@@ -298,7 +298,8 @@ function storage() {
         "trash": trash,
         "counter": counter
     }
-    sessionStorage.setItem("profil",JSON.stringify(data));
+    var json = JSON.stringify(data);
+    sessionStorage.setItem("profil",json);
 
     //pour recuperer en session
     // var obj = JSON.parse(sessionStorage.profil);

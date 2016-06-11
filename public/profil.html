@@ -62,7 +62,7 @@
     </div>
     <div class="col-md-4 text-center">
         <h2>Meilleur temps</h2>
-        <div class="big">14</div>
+        <div id="time" class="big"></div>
         secondes
     </div>
     <div class="col-md-4 text-center">
@@ -76,18 +76,24 @@
     var ctx = document.getElementById("myChart");
     var ctx2 = document.getElementById("myChart2");
 
-    var obj = JSON.parse(sessionStorage.profil);
-    console.log("obj : "+J obj);
+    var jsonobj = sessionStorage.getItem("profil");
+    var obj = JSON.parse(jsonobj);
+    console.log(obj);
+
+    var counter = obj["counter"];
+    var c = document.createElement('span');
+    c.innerHTML = counter;
+    document.getElementById('time').appendChild(c);
 
     var data = {
         labels: [
             "Pokemon",
             "South Park",
-            "Marvel"
+            "Pas Geek"
         ],
         datasets: [
             {
-                data: [4, 10, 22],
+                data: [obj["pokemon"], obj["southpark"], obj["trash"]],
                 backgroundColor: [
                     "#FF6384",
                     "#36A2EB",
