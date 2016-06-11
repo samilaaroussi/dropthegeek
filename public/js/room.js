@@ -176,9 +176,7 @@ function create() {
                     document.location.href="index.html"
 
                 }
-                // Display the choice
-                choiseLabel.text = 'You chose menu item: ' + choise;
-
+  
             }
             else{
                 // Remove the menu and the label
