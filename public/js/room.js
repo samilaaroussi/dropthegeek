@@ -334,7 +334,7 @@ function storage() {
         "mario": mario,
         "trash": trash,
         "counter": counter
-    }
+    };
 
     if(sessionStorage.getItem("profil") === null) {
         var json = JSON.stringify(data);
