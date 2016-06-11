@@ -22,6 +22,7 @@ function preload() {
     game.load.image('boxMario', 'assets/static/boxMario.png');
     game.load.image('trash', 'assets/static/trash.png');
     game.load.audio('tetris', ['assets/audio/tetris.mp3', 'assets/audio/tetris.ogg']);
+    game.load.audio('dbd', ['assets/audio/dbd.mp3', 'assets/audio/dbd.ogg']);
     game.load.image('menu', 'assets/button.png', 270, 180);
 
 
