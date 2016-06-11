@@ -54,7 +54,9 @@ function create() {
     room.smoothed = false;
 
     game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
+    music = game.add.audio('tetris');
 
+    music.play()
 
 
     trashText = game.add.text(25, 640, " 0", { font: "21px Arial", fill: "#FFFFFF" });
