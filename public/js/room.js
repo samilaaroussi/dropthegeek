@@ -128,13 +128,14 @@ function create() {
     bar.drawRect(0, 0, w, 40);
     pause_label = game.add.text(w - 100, 10, 'Menu', { font: '24px Arial', fill: '#fff' });
     pause_label.inputEnabled = true;
+    var bar2;
     pause_label.events.onInputUp.add(function () {
         // When the paus button is pressed, we pause the game
         game.paused = true;
 
-        var bar2 = game.add.graphics();
-        bar.beginFill(0x000000, 0.7);
-        bar.drawRect(0, 0, w, 40);
+        bar2 = game.add.graphics();
+        bar2.beginFill(0x000000, 0.7);
+        bar2.drawRect(0,0, w, h);
 
         // Then add the menu
         menu = game.add.sprite(w/2, h/2, 'menu');
@@ -183,6 +184,7 @@ function create() {
                 // Remove the menu and the label
                 menu.destroy();
                 choiseLabel.destroy();
+                bar2.destroy();
 
                 // Unpause the game
                 game.paused = false;
