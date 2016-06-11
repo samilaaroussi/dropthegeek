@@ -173,10 +173,11 @@ function create() {
 
                 }else{
                     choise = "quit";
+                    storage();
                     document.location.href="index.html"
 
                 }
-  
+
             }
             else{
                 // Remove the menu and the label
@@ -270,7 +271,10 @@ function boxCallback(body1, body2, fixture1, fixture2, begin) {
     }
 
     if(nameObjects.length==0){
-        alert("vasy la on est vide");
+        var fin = game.add.graphics();
+        fin.beginFill(0x000000, 0.7);
+        fin.drawRect(0,0, w, h);
+        storage();
     }
 
 
@@ -284,6 +288,20 @@ function boxCallback(body1, body2, fixture1, fixture2, begin) {
 
 
 
+}
+function storage() {
+    //stock le storage en session storage
+    var data =
+    {
+        "southpark": south,
+        "pokemon": poke,
+        "trash": trash,
+        "counter": counter
+    }
+    sessionStorage.setItem("profil",JSON.stringify(data));
+
+    //pour recuperer en session
+    // var obj = JSON.parse(sessionStorage.profil);
 }
 
 function inTheBox(item) {
