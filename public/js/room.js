@@ -13,6 +13,38 @@ var southText = 0;
 var pokemonText = 0;
 var counter = 0;
 
+function param() {
+    var southP = 0;
+    var marioP = 0;
+    var pokeP = 0;
+    var trashP = 0;
+    var marvelP = 0;
+
+    var data =
+    {
+        "m": southP,
+        "p": pokeP,
+        "t": marioP,
+        "s": trashP,
+        "marvel": marvelP
+    }
+
+
+    $("#param").on("submit", function(){
+        pokeP = this.checked ? 1: 0;
+        marvelP = this.checked ? 1: 0;
+        marioP = this.checked ? 1: 0;
+        trashP = this.checked ? 1: 0;
+        southP = this.checked ? 1: 0;
+
+        var json = JSON.stringify(data);
+        sessionStorage.setItem("param",json);
+
+        alert("form has been submitted.");
+        return false;
+    });
+}
+
 function preload() {
 
     game.load.image('room', 'assets/static/room.png');
@@ -57,8 +89,8 @@ function create() {
     game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
     music = game.add.audio('tetris');
 
-    music.play();
-    music.volume = 0.2;
+    //music.play();
+    //music.volume = 0.2;
 
     var param = sessionStorage.getItem("param");
     var obj = JSON.parse(param);
@@ -383,7 +415,6 @@ function inTheBox(item,value) {
     item.text = value;
 
 }
-
 
 function updateCounter() {
 
