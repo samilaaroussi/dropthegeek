@@ -1,40 +1,25 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <title>Range ta Chambre !</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon"
-          type="image/png"
-          href="assets/favicon.png" />
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+        h3 {
+            margin-top: 0;
+        }
+    </style>
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
     <script type="text/javascript" src="lib/jquery-2.2.4.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <script src="//cdn.jsdelivr.net/phaser/2.4.8/phaser.min.js"></script>
-    <script src="lib/box2d-plugin-full.js"></script>
-    <script type="text/javascript" src="js/room.js"></script>
-
-   <!-- <script type="text/javascript" src="js/boot.js"></script>
-    <script type="text/javascript" src="js/preload.js"></script>
-    <script type="text/javascript" src="js/gametitle.js"></script>
-    <script type="text/javascript" src="js/game1.js"></script>
-
-    <script>
-        (function() {
-            var game = new Phaser.Game(1000, 667, Phaser.CANVAS, "game");
-            game.state.add("Boot",boot);
-            game.state.add("Preload",preload);
-            game.state.add("GameTitle",gameTitle);
-            game.state.add("TheGame",theGame);
-            //game.state.add("GameOver",gameOver);
-            game.state.start("Boot");
-        })();
-    </script>-->
 
 </head>
+
 <body>
 <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
     <div class="container">
@@ -46,7 +31,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">Range ta Chambre !</a>
+            <a class="navbar-brand" href="index.html"><i class="glyphicon glyphicon-off"></i> Born to be a Geek</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -69,7 +54,24 @@
     </div>
     <!-- /.container -->
 </nav>
-<div id="GameContainer"></div>
+<div class="col-md-2"></div>
+<div class="col-md-8">
+    <div class="page-header">
+        <h1><i class="glyphicon glyphicon-education"></i> Tutoriel</h1>
+    </div>
+            <h2>À propos</h2>
+            <p>Range ta chambre est un jeu en drag & drop de classification dans des oeuvres marquantes de l'univers geek. Le principe du jeu est de trier une quantité d'objets, allant du manga au jeux-vidéo en passant par le cinéma de science-fictionn, permettant de tester et développer ses connaissances dans ce domaine.</p>
+
+            <h2>Comment jouer ?</h2>
+
+            <p>Kévin a laissé un bazar monstre dans sa chambre et ses parents rentre bientôt de week-End. Aidez-le à ranger le plus vite possible tous les objets qui jonchent le sol avant que ses parents reviennent !</p>
+            <p>Pour remporter la partie, déplacez chaque objet à l'aide de la souris dans le carton qui lui correspond. Chaque partie est minuté et le meilleur temps de jeu est à retrouver sur <a href="profil.html">la page profil</a>.</p>
+            <p><i><b>Bonus:</b> Des objets qui ne font pas partie de l'univers geek se cachent dans le jeu, ils sont à déplacer dans la corbeille bien sûr ! ;)</i></p>
+            <a href="#" class="thumbnail">
+                <img src="assets/game.png" alt="Range ta chambre !">
+            </a>
+</div>
 
 </body>
+
 </html>
