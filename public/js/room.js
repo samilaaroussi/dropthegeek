@@ -201,7 +201,7 @@ function create() {
                 }else{
                     choise = "quit";
                     storage();
-                    document.location.href="index.html"
+                    document.location.href="index.html";
 
                 }
 
@@ -325,6 +325,7 @@ function boxCallback(body1, body2, fixture1, fixture2, begin) {
 }
 function storage() {
     //stock le storage en session storage
+    console.log("south: " + south + " pokemon: " + poke + " mario: " + mario + " trash: " + trash + " counter: " + counter);
     var data =
     {
         "southpark": south,
@@ -333,8 +334,28 @@ function storage() {
         "trash": trash,
         "counter": counter
     }
-    var json = JSON.stringify(data);
-    sessionStorage.setItem("profil",json);
+
+    if(sessionStorage.getItem("profil") === null) {
+        var json = JSON.stringify(data);
+        sessionStorage.setItem("profil",json);
+    }
+
+    else {
+        var jsonobj = sessionStorage.getItem("profil");
+        var obj = JSON.parse(jsonobj);
+
+        if (obj['counter'] < counter) {
+            var json = JSON.stringify(data);
+            sessionStorage.setItem("profil",json);
+        }
+
+        else {
+        }
+
+    }
+
+
+
 
     //pour recuperer en session
     // var obj = JSON.parse(sessionStorage.profil);
