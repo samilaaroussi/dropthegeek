@@ -60,32 +60,73 @@ function create() {
     music.play();
     music.volume = 0.2;
 
-    trashText = game.add.text(25, 640, " 0", { font: "21px Arial", fill: "#FFFFFF" });
-    trashText.stroke = "#333333";
-    trashText.strokeThickness = 5;
+    var param = sessionStorage.getItem("param");
+    var obj = JSON.parse(param);
+    console.log("param: " + obj);
 
-    pokemonText = game.add.text(590, 640, "0", { font: "21px Arial", fill: "#FFFFFF" });
-    pokemonText.stroke = "#333333";
-    pokemonText.strokeThickness = 5;
+    param();
 
-    southText = game.add.text(190, 640, "0", { font: "21px Arial", fill: "#FFFFFF" });
-    southText.stroke = "#333333";
-    southText.strokeThickness = 5;
+    if(obj["t"] != 0) {
+        trashText = game.add.text(25, 640, " 0", { font: "21px Arial", fill: "#FFFFFF" });
+        trashText.stroke = "#333333";
+        trashText.strokeThickness = 5;
 
-    marioText = game.add.text(790, 640, "0", { font: "21px Arial", fill: "#FFFFFF" });
-    marioText.stroke = "#333333";
-    marioText.strokeThickness = 5;
+        var trash = game.add.sprite(40, 605, 'trash');
+        game.physics.box2d.enable(trash);
+        trash.body.fixedRotation = true;
+        trash.body.static = true;
+    }
 
-    marvelText = game.add.text(390, 640, "0", { font: "21px Arial", fill: "#FFFFFF" });
-    marvelText.stroke = "#333333";
-    marvelText.strokeThickness = 5;
+    if(obj["p"] != 0) {
+        pokemonText = game.add.text(590, 640, "0", {font: "21px Arial", fill: "#FFFFFF"});
+        pokemonText.stroke = "#333333";
+        pokemonText.strokeThickness = 5;
+
+        var boxPokemon = game.add.sprite(600, 610, 'boxPokemon');
+        game.physics.box2d.enable(boxPokemon);
+        boxPokemon.body.fixedRotation = true;
+        boxPokemon.body.static = true;
+    }
+
+    if(obj["s"] != 0) {
+        southText = game.add.text(190, 640, "0", {font: "21px Arial", fill: "#FFFFFF"});
+        southText.stroke = "#333333";
+        southText.strokeThickness = 5;
+
+        var boxSouthPark = game.add.sprite(200, 610, 'boxSouthPark');
+        game.physics.box2d.enable(boxSouthPark);
+        boxSouthPark.body.fixedRotation = true;
+        boxSouthPark.body.static = true;
+    }
+
+    if(obj["m"] != 0) {
+        marioText = game.add.text(790, 640, "0", {font: "21px Arial", fill: "#FFFFFF"});
+        marioText.stroke = "#333333";
+        marioText.strokeThickness = 5;
+
+        var boxMario = game.add.sprite(800, 610, 'boxMario');
+        game.physics.box2d.enable(boxMario);
+        boxMario.body.fixedRotation = true;
+        boxMario.body.static = true;
+    }
+
+    if(obj["marvel"] != 0) {
+        marvelText = game.add.text(390, 640, "0", {font: "21px Arial", fill: "#FFFFFF"});
+        marvelText.stroke = "#333333";
+        marvelText.strokeThickness = 5;
+
+        var boxMarvel = game.add.sprite(400, 610, 'boxMarvel');
+        game.physics.box2d.enable(boxMarvel);
+        boxMarvel.body.fixedRotation = true;
+        boxMarvel.body.static = true;
+    }
 
     time = game.add.text(game.width-200, 110, "Temps : " + counter, { font: "21px Arial", fill: "#FFFFFF" });
     time.stroke = "#333333";
     time.strokeThickness = 5;
 
     var biblio = new Phaser.Physics.Box2D.Body(this.game, null, 915, 400, 100);
-    biblio.setPolygon([-40, -120, -40, 200, 80, 200, 80, -120 ]);
+    biblio.setRectangle([40, 20, 0, 0, 0]);
 
     var etagere1 = new Phaser.Physics.Box2D.Body(this.game, null, 320, 250, 100);
     etagere1.setRectangle(45, 10, 0, 0, 0);
@@ -96,36 +137,6 @@ function create() {
     var ventilo = new Phaser.Physics.Box2D.Body(this.game, null, 320, 250, 100);
     ventilo.setRectangle(183, 5, 176, -72, 0);
 
-    var boxPokemon = game.add.sprite(600, 610, 'boxPokemon');
-    game.physics.box2d.enable(boxPokemon);
-    boxPokemon.body.fixedRotation = true;
-    boxPokemon.body.static = true;
-
-    var boxSouthPark = game.add.sprite(200, 610, 'boxSouthPark');
-    game.physics.box2d.enable(boxSouthPark);
-    boxSouthPark.body.fixedRotation = true;
-    boxSouthPark.body.static = true;
-
-    var boxMarvel = game.add.sprite(400, 610, 'boxMarvel');
-    game.physics.box2d.enable(boxMarvel);
-    boxMarvel.body.fixedRotation = true;
-    boxMarvel.body.static = true;
-
-    var trash = game.add.sprite(40, 605, 'trash');
-    game.physics.box2d.enable(trash);
-    trash.body.fixedRotation = true;
-    trash.body.static = true;
-
-    var boxMario = game.add.sprite(800, 610, 'boxMario');
-    game.physics.box2d.enable(boxMario);
-    boxMario.body.fixedRotation = true;
-    boxMario.body.static = true;
-
-    boxPokemon.body.setCategoryContactCallback(2,boxCallback,this);
-    boxSouthPark.body.setCategoryContactCallback(2,boxCallback,this);
-    trash.body.setCategoryContactCallback(2,boxCallback,this);
-    boxMario.body.setCategoryContactCallback(2,boxCallback,this);
-
     var obj = game.add.group();
     obj.enableBody = true;
     obj.physicsBodyType = Phaser.Physics.BOX2D;
@@ -133,11 +144,15 @@ function create() {
     // on cree chaque object  !
     $.each(nameObjects, function( index, value ) {
 
-        var object = obj.create(Math.floor((Math.random() * game.width-100) ), Math.floor((Math.random() * game.height-100) ), value);
+        var object = obj.create(Math.floor((Math.random() * game.width-100) ), 10, value);
         object.body.setCollisionCategory(2);
 
     });
 
+    boxPokemon.body.setCategoryContactCallback(2,boxCallback,this);
+    boxSouthPark.body.setCategoryContactCallback(2,boxCallback,this);
+    trash.body.setCategoryContactCallback(2,boxCallback,this);
+    boxMario.body.setCategoryContactCallback(2,boxCallback,this);
 
 
     // Set up handlers for mouse events
@@ -335,7 +350,7 @@ function storage() {
         "mario": mario,
         "trash": trash,
         "counter": counter
-    };
+    }
 
     if(sessionStorage.getItem("profil") === null) {
         var json = JSON.stringify(data);
