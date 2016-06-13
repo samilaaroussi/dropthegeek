@@ -19,37 +19,14 @@ function parameter() {
 
     $("form").submit(function(){
 
-        if ($("#mario").is(':checked')) {
+        $('input[type=checkbox]').each(function() {
 
-            $("#mario").val(1);
-            console.log("it's me marioooo !");
-        } else {
-            $("#mario").val(0);
-        }
-
-        if ($("#trash").is(':checked')) {
-
-            $("#trash").val(1);
-            console.log("it's me marioooo !");
-        } else {
-            $("#trash").val(0);
-        }
-
-        if ($("#poke").is(':checked')) {
-
-            $("#south").val(1);
-            console.log("it's me marioooo !");
-        } else {
-            $("#south").val(0);
-        }
-
-        if ($("#marvel").is(':checked')) {
-
-            $("#marvel").val(1);
-            console.log("it's me marioooo !");
-        } else {
-            $("#marvel").val(0);
-        }
+            if ($(this).is(':checked')) {
+                $(this).val(1);
+            } else {
+                $(this).val(0);
+            }
+        });
 
         console.log("-- Fin parameter --");
 
