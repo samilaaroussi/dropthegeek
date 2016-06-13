@@ -13,12 +13,30 @@ var southText = 0;
 var pokemonText = 0;
 var counter = 0;
 
+//Fonction: Récupère les paramètres de l'URL
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
+
 function parameter() {
 
     console.log("-- Début parameter --");
 
+    //Quand on clique sur Envoyer
     $("form").submit(function(){
 
+        //Modifie la valeur des checkboxes
         $('input[type=checkbox]').each(function() {
 
             if ($(this).is(':checked')) {
@@ -64,6 +82,10 @@ function preload() {
 
 }
 
+function showhide() {
+    $('#GameContainer').show();
+    $('#param').hide();
+}
 
 function create() {
 
@@ -82,21 +104,7 @@ function create() {
 
     parameter();
 
-    var getUrlParameter = function getUrlParameter(sParam) {
-        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-            sURLVariables = sPageURL.split('&'),
-            sParameterName,
-            i;
-
-        for (i = 0; i < sURLVariables.length; i++) {
-            sParameterName = sURLVariables[i].split('=');
-
-            if (sParameterName[0] === sParam) {
-                return sParameterName[1] === undefined ? true : sParameterName[1];
-            }
-        }
-    };
-
+    //Si la valeur de chaque param = 1
     if(getUrlParameter('trash') == 1) {
         trashText = game.add.text(25, 640, " 0", { font: "21px Arial", fill: "#FFFFFF" });
         trashText.stroke = "#333333";
