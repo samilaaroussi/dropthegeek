@@ -18,22 +18,22 @@
           type="image/png"
           href="assets/favicon.png" />
 
-    <!-- <script type="text/javascript" src="js/boot.js"></script>
-     <script type="text/javascript" src="js/preload.js"></script>
-     <script type="text/javascript" src="js/gametitle.js"></script>
-     <script type="text/javascript" src="js/game1.js"></script>
+   <!-- <script type="text/javascript" src="js/boot.js"></script>
+    <script type="text/javascript" src="js/preload.js"></script>
+    <script type="text/javascript" src="js/gametitle.js"></script>
+    <script type="text/javascript" src="js/game1.js"></script>
 
-     <script>
-         (function() {
-             var game = new Phaser.Game(1000, 667, Phaser.CANVAS, "game");
-             game.state.add("Boot",boot);
-             game.state.add("Preload",preload);
-             game.state.add("GameTitle",gameTitle);
-             game.state.add("TheGame",theGame);
-             //game.state.add("GameOver",gameOver);
-             game.state.start("Boot");
-         })();
-     </script>-->
+    <script>
+        (function() {
+            var game = new Phaser.Game(1000, 667, Phaser.CANVAS, "game");
+            game.state.add("Boot",boot);
+            game.state.add("Preload",preload);
+            game.state.add("GameTitle",gameTitle);
+            game.state.add("TheGame",theGame);
+            //game.state.add("GameOver",gameOver);
+            game.state.start("Boot");
+        })();
+    </script>-->
 
 </head>
 <body>
@@ -71,7 +71,29 @@
     <!-- /.container -->
 </nav>
 <div class="col-md-12">
-    <div id="GameContainer"></div>
+    <h1>Paramètres</h1>
+
+    <form role="form" id="param" method="get" action="room.html">
+        <p>Sélectionnez les boîtes à générer dans le jeu :</p>
+            <div class="checkbox">
+                <label><input type="checkbox" id="mario" name="mario" value="0">Super Mario</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" id="south" name="south" value="0">South Park</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" id="poke" name="poke" value="0">Pokémon</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" id="marvel" name="marvel" value="0">Marvel</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" id="trash" name="trash" value="0">Corbeille</label>
+            </div>
+            <button type="submit" class="btn btn-default">Générer</button>
+    </form>
+    <div id="GameContainer" style="display: none"></div>
+
 </div>
 </body>
 </html>

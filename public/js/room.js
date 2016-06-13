@@ -46,6 +46,7 @@ function parameter() {
             }
         });
 
+        showhide();
         console.log("-- Fin parameter --");
 
     });
@@ -83,7 +84,6 @@ function preload() {
 }
 
 function showhide() {
-    $('#GameContainer').show();
     $('#param').hide();
 }
 
@@ -182,16 +182,24 @@ function create() {
 
     // on cree chaque object  !
     $.each(nameObjects, function( index, value ) {
-
+        console.log("objet !");
         var object = obj.create(Math.floor((Math.random() * game.width-100) ), 10, value);
         object.body.setCollisionCategory(2);
 
     });
 
-    boxPokemon.body.setCategoryContactCallback(2,boxCallback,this);
-    boxSouthPark.body.setCategoryContactCallback(2,boxCallback,this);
-    trash.body.setCategoryContactCallback(2,boxCallback,this);
-    boxMario.body.setCategoryContactCallback(2,boxCallback,this);
+    if(getUrlParameter('poke') == 1) {
+        boxPokemon.body.setCategoryContactCallback(2,boxCallback,this);
+    }
+    if(getUrlParameter('south') == 1) {
+        boxSouthPark.body.setCategoryContactCallback(2,boxCallback,this);
+    }
+    if(getUrlParameter('south') == 1) {
+        trash.body.setCategoryContactCallback(2,boxCallback,this);
+    }
+    if(getUrlParameter('mario') == 1) {
+        boxMario.body.setCategoryContactCallback(2,boxCallback,this);
+    }
 
 
     // Set up handlers for mouse events
