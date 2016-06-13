@@ -13,35 +13,46 @@ var southText = 0;
 var pokemonText = 0;
 var counter = 0;
 
-function param() {
-    var southP = 0;
-    var marioP = 0;
-    var pokeP = 0;
-    var trashP = 0;
-    var marvelP = 0;
+function parameter() {
 
-    var data =
-    {
-        "m": southP,
-        "p": pokeP,
-        "t": marioP,
-        "s": trashP,
-        "marvel": marvelP
-    }
+    console.log("-- Début parameter --");
 
+    $("form").submit(function(){
 
-    $("#param").on("submit", function(){
-        pokeP = this.checked ? 1: 0;
-        marvelP = this.checked ? 1: 0;
-        marioP = this.checked ? 1: 0;
-        trashP = this.checked ? 1: 0;
-        southP = this.checked ? 1: 0;
+        if ($("#mario").is(':checked')) {
 
-        var json = JSON.stringify(data);
-        sessionStorage.setItem("param",json);
+            $("#mario").val(1);
+            console.log("it's me marioooo !");
+        } else {
+            $("#mario").val(0);
+        }
 
-        alert("form has been submitted.");
-        return false;
+        if ($("#trash").is(':checked')) {
+
+            $("#trash").val(1);
+            console.log("it's me marioooo !");
+        } else {
+            $("#trash").val(0);
+        }
+
+        if ($("#poke").is(':checked')) {
+
+            $("#south").val(1);
+            console.log("it's me marioooo !");
+        } else {
+            $("#south").val(0);
+        }
+
+        if ($("#marvel").is(':checked')) {
+
+            $("#marvel").val(1);
+            console.log("it's me marioooo !");
+        } else {
+            $("#marvel").val(0);
+        }
+
+        console.log("-- Fin parameter --");
+
     });
 }
 
@@ -92,13 +103,24 @@ function create() {
     //music.play();
     //music.volume = 0.2;
 
-    var param = sessionStorage.getItem("param");
-    var obj = JSON.parse(param);
-    console.log("param: " + obj);
+    parameter();
 
-    param();
+    var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
 
-    if(obj["t"] != 0) {
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+    };
+
+    if(getUrlParameter('trash') == 1) {
         trashText = game.add.text(25, 640, " 0", { font: "21px Arial", fill: "#FFFFFF" });
         trashText.stroke = "#333333";
         trashText.strokeThickness = 5;
@@ -109,7 +131,7 @@ function create() {
         trash.body.static = true;
     }
 
-    if(obj["p"] != 0) {
+    if(getUrlParameter('poke') == 1) {
         pokemonText = game.add.text(590, 640, "0", {font: "21px Arial", fill: "#FFFFFF"});
         pokemonText.stroke = "#333333";
         pokemonText.strokeThickness = 5;
@@ -120,7 +142,7 @@ function create() {
         boxPokemon.body.static = true;
     }
 
-    if(obj["s"] != 0) {
+    if(getUrlParameter('south') == 1) {
         southText = game.add.text(190, 640, "0", {font: "21px Arial", fill: "#FFFFFF"});
         southText.stroke = "#333333";
         southText.strokeThickness = 5;
@@ -131,7 +153,7 @@ function create() {
         boxSouthPark.body.static = true;
     }
 
-    if(obj["m"] != 0) {
+    if(getUrlParameter('mario') == 1) {
         marioText = game.add.text(790, 640, "0", {font: "21px Arial", fill: "#FFFFFF"});
         marioText.stroke = "#333333";
         marioText.strokeThickness = 5;
@@ -142,7 +164,7 @@ function create() {
         boxMario.body.static = true;
     }
 
-    if(obj["marvel"] != 0) {
+    if(getUrlParameter('marvel') == 1) {
         marvelText = game.add.text(390, 640, "0", {font: "21px Arial", fill: "#FFFFFF"});
         marvelText.stroke = "#333333";
         marvelText.strokeThickness = 5;

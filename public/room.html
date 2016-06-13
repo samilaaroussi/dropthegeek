@@ -73,21 +73,22 @@
 <div class="col-md-12">
     <h1>Paramètre des boîtes</h1>
 
-    <form role="form" id="param">
+    <form role="form" id="param" method="get">
             <div class="checkbox">
-                <label><input type="checkbox" value="mario">Super Mario</label>
+                <label><input type="checkbox" id="mario" name="mario" value="0">Super Mario</label>
             </div>
             <div class="checkbox">
-                <label><input type="checkbox" value="south">South Park</label>
+                <label><input type="checkbox" id="south" name="south" value="0">South Park</label>
             </div>
             <div class="checkbox">
-                <label><input type="checkbox" value="poke">Pokémon</label>
+                <label><input type="checkbox" id="poke" name="poke" value="0">Pokémon</label>
             </div>
             <div class="checkbox">
-                <label><input type="checkbox" value="marvel">Marvel</label>
+                <label><input type="checkbox" id="marvel" name="marvel" value="0">Marvel</label>
             </div>
             <button type="submit" class="btn btn-default">Submit</button>
     </form>
+    <div id="GameContainer"></div>
 </div>
 </body>
 </html>
