@@ -10,9 +10,6 @@
     <script type="text/javascript" src="lib/jquery-2.2.4.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <script src="//cdn.jsdelivr.net/phaser/2.4.8/phaser.min.js"></script>
-    <script src="lib/box2d-plugin-full.js"></script>
-    <script type="text/javascript" src="js/room.js"></script>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="icon"
           type="image/png"
@@ -70,7 +67,7 @@
     </div>
     <!-- /.container -->
 </nav>
-<div class="col-md-12">
+<div class="container">
     <h1>Paramètres</h1>
 
     <form role="form" id="param" method="get" action="room.html">
@@ -88,12 +85,19 @@
                 <label><input type="checkbox" id="marvel" name="marvel" value="0">Marvel</label>
             </div>
             <div class="checkbox">
-                <label><input type="checkbox" id="trash" name="trash" value="0">Corbeille</label>
+                <label><input type="checkbox" id="trash" name="trash" value="0">Non-Geek</label>
+            </div>
+
+            <div class="checkbox">
+                <label><input type="checkbox" id="help" name="help" value="0">Aide</label>
             </div>
             <button type="submit" class="btn btn-default">Générer</button>
     </form>
+    <img src="http://memesvault.com/wp-content/uploads/Angry-Computer-Meme-04.png" style="width: 700px; height: auto">
     <div id="GameContainer" style="display: none"></div>
-
 </div>
+<script src="//cdn.jsdelivr.net/phaser/2.4.8/phaser.min.js"></script>
+<script src="lib/box2d-plugin-full.js"></script>
+<script type="text/javascript" src="js/room.js"></script>
 </body>
 </html>

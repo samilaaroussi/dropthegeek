@@ -6,12 +6,15 @@ var south = 0;
 var poke = 0;
 var mario = 0;
 var trash = 0;
+var helpText = 0;
 var trashText = 0;
 var marioText = 0;
 var marvelText = 0;
 var southText = 0;
 var pokemonText = 0;
 var counter = 0;
+var help = 0;
+var best = '';
 
 //Fonction: Récupère les paramètres de l'URL
 var getUrlParameter = function getUrlParameter(sParam) {
@@ -77,6 +80,7 @@ function preload() {
                 //load les images
                 game.load.image(filename,'assets/objects/' + filename + '.png');
                 nameObjects.push(filename);
+                console.log(filename);
             });
         }
     });
@@ -104,6 +108,9 @@ function create() {
 
     parameter();
 
+    if(getUrlParameter('help') == 1) {
+        helpText = game.add.text(50, 16, '', { font: "21px Arial", fill: "#FFFFFF" });
+    }
     //Si la valeur de chaque param = 1
     if(getUrlParameter('trash') == 1) {
         trashText = game.add.text(25, 640, " 0", { font: "21px Arial", fill: "#FFFFFF" });
@@ -194,18 +201,20 @@ function create() {
     if(getUrlParameter('south') == 1) {
         boxSouthPark.body.setCategoryContactCallback(2,boxCallback,this);
     }
-    if(getUrlParameter('south') == 1) {
+    if(getUrlParameter('trash') == 1) {
         trash.body.setCategoryContactCallback(2,boxCallback,this);
     }
     if(getUrlParameter('mario') == 1) {
         boxMario.body.setCategoryContactCallback(2,boxCallback,this);
     }
 
-
+    console.log("avant mouse event");
     // Set up handlers for mouse events
     game.input.onDown.add(mouseDragStart, this);
     game.input.addMoveCallback(mouseDragMove, this);
     game.input.onUp.add(mouseDragEnd, this);
+    console.log("après mouse event");
+
     //timer
     game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
 
@@ -294,6 +303,7 @@ function mouseDragStart() {
 function mouseDragMove() {
 
     game.physics.box2d.mouseDragMove(game.input.mousePointer);
+    text = game.add.text(250, 16, '', { fill: '#ffffff' });
 
 }
 
@@ -388,35 +398,47 @@ function boxCallback(body1, body2, fixture1, fixture2, begin) {
 
 }
 function storage() {
+
     //stock le storage en session storage
-    console.log("south: " + south + " pokemon: " + poke + " mario: " + mario + " trash: " + trash + " counter: " + counter);
     var data =
     {
         "southpark": south,
         "pokemon": poke,
         "mario": mario,
         "trash": trash,
-        "counter": counter
+        "help": help,
+        "counter": counter,
+        "best" : best
     }
 
     if(sessionStorage.getItem("profil") === null) {
         var json = JSON.stringify(data);
         sessionStorage.setItem("profil",json);
+        console.log("le profil est nouveau.");
     }
 
     else {
+        console.log("un profil existe déjà.");
         var jsonobj = sessionStorage.getItem("profil");
         var obj = JSON.parse(jsonobj);
 
         if (obj['counter'] < counter) {
             var json = JSON.stringify(data);
+            console.log('');
             sessionStorage.setItem("profil",json);
         }
 
         else {
         }
-
     }
+
+    obj['southpark'] = obj['southpark'] + south;
+    obj['pokemon'] = obj['pokemon'] + south;
+    obj['trash'] = obj['trash'] + south;
+    obj['mario'] = obj['mario'] + south;
+
+    console.log("south: " + south + " pokemon: " + poke + " mario: " + mario + " trash: " + trash + " counter: " + counter);
+
 
 
 

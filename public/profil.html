@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <script type="text/javascript" src="lib/jquery-2.2.4.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="http://talkslab.github.io/metro-bootstrap/dist/css/metro-bootstrap.min.css">
-    <script type="text/javascript" src="lib/jquery-2.2.4.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/styles.css">
@@ -59,18 +59,17 @@
         <h1><i class="glyphicon glyphicon-user"></i> Mon Profil</h1>
     </div>
     <div class="col-md-4 text-center">
-        <h2>Niveau par thème</h2>
+        <h2>Niveau</h2>
+        <div id="lvl" class="big"></div>
+    </div>
+    <div class="col-md-4 text-center">
+        <h2>Prédominance</h2>
         <canvas id="myChart" width="200" height="200"></canvas>
     </div>
     <div class="col-md-4 text-center">
         <h2>Meilleur temps</h2>
         <div id="time" class="big"></div>
         secondes
-    </div>
-    <div class="col-md-4 text-center">
-        <h2>Niveau atteint</h2>
-        <div class="big">4</div>
-        cartons
     </div>
 </div>
 
@@ -79,12 +78,31 @@
     var ctx2 = document.getElementById("myChart2");
 
     var jsonobj = sessionStorage.getItem("profil");
+    console.log(jsonobj);
     var obj = JSON.parse(jsonobj);
 
     var counter = obj["counter"];
     var c = document.createElement('span');
     c.innerHTML = counter;
     document.getElementById('time').appendChild(c);
+
+    if (counter < 20) {
+        var l = document.createElement('span');
+        l.innerHTML = "Expert";
+        document.getElementById('lvl').appendChild(l);
+    }
+
+    else if (counter >= 20 && counter < 40) {
+        var l = document.createElement('span');
+        l.innerHTML = "Intermédiaire";
+        document.getElementById('lvl').appendChild(l);
+    }
+
+    else if (counter >= 40) {
+        var l = document.createElement('span');
+        l.innerHTML = "Débutant";
+        document.getElementById('lvl').appendChild(l);
+    }
 
     var data = {
         labels: [
@@ -112,26 +130,6 @@
     var myDoughnutChart = new Chart(ctx, {
         type: 'doughnut',
         data: data
-    });
-
-    var data2 = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [
-            {
-                label: "",
-                backgroundColor: "rgba(255,99,132,0.2)",
-                borderColor: "rgba(255,99,132,1)",
-                borderWidth: 1,
-                hoverBackgroundColor: "rgba(255,99,132,0.4)",
-                hoverBorderColor: "rgba(255,99,132,1)",
-                data: [65, 59, 80, 81, 56, 55, 40],
-            }
-        ]
-    };
-
-    var myBarChart = new Chart(ctx2, {
-        type: 'horizontalBar',
-        data: data2,
     });
 
 </script>
