@@ -47,7 +47,7 @@ function parameter() {
             } else {
                 $(this).val(0);
             }
-        });
+});
 
         showhide();
         console.log("-- Fin parameter --");
