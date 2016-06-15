@@ -60,7 +60,7 @@
     </div>
     <div class="col-md-4 text-center">
         <h2>Niveau</h2>
-        <div id="lvl" class="big"></div>
+        <div id="lvl"></div>
     </div>
     <div class="col-md-4 text-center">
         <h2>Prédominance</h2>
@@ -88,19 +88,19 @@
 
     if (counter < 20) {
         var l = document.createElement('span');
-        l.innerHTML = "Expert";
+        l.innerHTML = "<img src=\"assets/or.png\"/><br>Expert";
         document.getElementById('lvl').appendChild(l);
     }
 
     else if (counter >= 20 && counter < 40) {
         var l = document.createElement('span');
-        l.innerHTML = "Intermédiaire";
+        l.innerHTML = "<img src=\"assets/argent.png\"/><br>Intérmediaire";
         document.getElementById('lvl').appendChild(l);
     }
 
     else if (counter >= 40) {
         var l = document.createElement('span');
-        l.innerHTML = "Débutant";
+        l.innerHTML = "<img src=\"assets/bronze.png\"/><br>Débutant";
         document.getElementById('lvl').appendChild(l);
     }
 
