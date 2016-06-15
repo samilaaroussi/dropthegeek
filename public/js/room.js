@@ -5,57 +5,29 @@ var text1;
 var south = 0;
 var poke = 0;
 var mario = 0;
+var marvel = 0;
 var trash = 0;
-var helpText = 0;
 var trashText = 0;
 var marioText = 0;
 var marvelText = 0;
 var southText = 0;
 var pokemonText = 0;
+var helpText;
 var counter = 0;
-var help = 0;
-var best = '';
+var getUrlParameter= null;
+
+
 
 //Fonction: Récupère les paramètres de l'URL
-var getUrlParameter = function getUrlParameter(sParam) {
-    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-        sURLVariables = sPageURL.split('&'),
-        sParameterName,
-        i;
-
-    for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=');
-
-        if (sParameterName[0] === sParam) {
-            return sParameterName[1] === undefined ? true : sParameterName[1];
-        }
-    }
+var getUrlParameter = function getUrlParameter() {
+    return decodeURIComponent(window.location.search.substring(1));
 };
 
-function parameter() {
 
-    console.log("-- Début parameter --");
 
-    //Quand on clique sur Envoyer
-    $("form").submit(function(){
-
-        //Modifie la valeur des checkboxes
-        $('input[type=checkbox]').each(function() {
-
-            if ($(this).is(':checked')) {
-                $(this).val(1);
-            } else {
-                $(this).val(0);
-            }
-});
-
-        showhide();
-        console.log("-- Fin parameter --");
-
-    });
-}
 
 function preload() {
+    getUrlParameter=getUrlParameter();
 
     game.load.image('room', 'assets/static/room.png');
     game.load.image('boxPokemon', 'assets/static/boxPokemon.png');
@@ -80,16 +52,12 @@ function preload() {
                 //load les images
                 game.load.image(filename,'assets/objects/' + filename + '.png');
                 nameObjects.push(filename);
-                console.log(filename);
             });
         }
     });
 
 }
 
-function showhide() {
-    $('#param').hide();
-}
 
 function create() {
 
@@ -101,78 +69,29 @@ function create() {
     room.smoothed = false;
 
     game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
-    music = game.add.audio('tetris');
+    /*  music = game.add.audio('tetris');
 
-    //music.play();
-    //music.volume = 0.2;
+     var rand = Math.floor((Math.random() * 2));
+     if(rand == 0){
+     var music = game.add.audio('tetris');
+     }else {
+     var music = game.add.audio('dbd');
+     }
 
-    parameter();
+     music.play();
+     music.volume = 0.2;
+     */
 
-    if(getUrlParameter('help') == 1) {
-        helpText = game.add.text(50, 16, '', { font: "21px Arial", fill: "#FFFFFF" });
-    }
-    //Si la valeur de chaque param = 1
-    if(getUrlParameter('trash') == 1) {
-        trashText = game.add.text(25, 640, " 0", { font: "21px Arial", fill: "#FFFFFF" });
-        trashText.stroke = "#333333";
-        trashText.strokeThickness = 5;
 
-        var trash = game.add.sprite(40, 605, 'trash');
-        game.physics.box2d.enable(trash);
-        trash.body.fixedRotation = true;
-        trash.body.static = true;
-    }
-
-    if(getUrlParameter('poke') == 1) {
-        pokemonText = game.add.text(590, 640, "0", {font: "21px Arial", fill: "#FFFFFF"});
-        pokemonText.stroke = "#333333";
-        pokemonText.strokeThickness = 5;
-
-        var boxPokemon = game.add.sprite(600, 610, 'boxPokemon');
-        game.physics.box2d.enable(boxPokemon);
-        boxPokemon.body.fixedRotation = true;
-        boxPokemon.body.static = true;
-    }
-
-    if(getUrlParameter('south') == 1) {
-        southText = game.add.text(190, 640, "0", {font: "21px Arial", fill: "#FFFFFF"});
-        southText.stroke = "#333333";
-        southText.strokeThickness = 5;
-
-        var boxSouthPark = game.add.sprite(200, 610, 'boxSouthPark');
-        game.physics.box2d.enable(boxSouthPark);
-        boxSouthPark.body.fixedRotation = true;
-        boxSouthPark.body.static = true;
-    }
-
-    if(getUrlParameter('mario') == 1) {
-        marioText = game.add.text(790, 640, "0", {font: "21px Arial", fill: "#FFFFFF"});
-        marioText.stroke = "#333333";
-        marioText.strokeThickness = 5;
-
-        var boxMario = game.add.sprite(800, 610, 'boxMario');
-        game.physics.box2d.enable(boxMario);
-        boxMario.body.fixedRotation = true;
-        boxMario.body.static = true;
-    }
-
-    if(getUrlParameter('marvel') == 1) {
-        marvelText = game.add.text(390, 640, "0", {font: "21px Arial", fill: "#FFFFFF"});
-        marvelText.stroke = "#333333";
-        marvelText.strokeThickness = 5;
-
-        var boxMarvel = game.add.sprite(400, 610, 'boxMarvel');
-        game.physics.box2d.enable(boxMarvel);
-        boxMarvel.body.fixedRotation = true;
-        boxMarvel.body.static = true;
-    }
-
+    helpText = game.add.text(game.width-200, 140, '', {font: "21px Arial", fill: '#ffffff' });
+    helpText.stroke = "#e69500";
+    helpText.strokeThickness = 5;
     time = game.add.text(game.width-200, 110, "Temps : " + counter, { font: "21px Arial", fill: "#FFFFFF" });
     time.stroke = "#333333";
     time.strokeThickness = 5;
 
     var biblio = new Phaser.Physics.Box2D.Body(this.game, null, 915, 400, 100);
-    biblio.setRectangle([40, 20, 0, 0, 0]);
+    biblio.setPolygon([-40, -120, -40, 200, 80, 200, 80, -120 ]);
 
     var etagere1 = new Phaser.Physics.Box2D.Body(this.game, null, 320, 250, 100);
     etagere1.setRectangle(45, 10, 0, 0, 0);
@@ -183,38 +102,86 @@ function create() {
     var ventilo = new Phaser.Physics.Box2D.Body(this.game, null, 320, 250, 100);
     ventilo.setRectangle(183, 5, 176, -72, 0);
 
+    if(getUrlParameter.includes("poke")) {
+        var boxPokemon = game.add.sprite(600, 610, 'boxPokemon');
+        game.physics.box2d.enable(boxPokemon);
+        boxPokemon.body.fixedRotation = true;
+        boxPokemon.body.static = true;
+        pokemonText = game.add.text(590, 640, "0", {font: "21px Arial", fill: "#FFFFFF"});
+        pokemonText.stroke = "#333333";
+        pokemonText.strokeThickness = 5;
+        boxPokemon.body.setCategoryContactCallback(2, boxCallback, this);
+    }
+    if(getUrlParameter.includes("south")) {
+
+        var boxSouthPark = game.add.sprite(200, 610, 'boxSouthPark');
+        game.physics.box2d.enable(boxSouthPark);
+        boxSouthPark.body.fixedRotation = true;
+        boxSouthPark.body.static = true;
+        southText = game.add.text(190, 640, "0", {font: "21px Arial", fill: "#FFFFFF"});
+        southText.stroke = "#333333";
+        southText.strokeThickness = 5;
+        boxSouthPark.body.setCategoryContactCallback(2, boxCallback, this);
+    }
+
+    if(getUrlParameter.includes("marvel")) {
+
+        var boxMarvel = game.add.sprite(400, 610, 'boxMarvel');
+        game.physics.box2d.enable(boxMarvel);
+        boxMarvel.body.fixedRotation = true;
+        boxMarvel.body.static = true;
+        marvelText = game.add.text(390, 640, "0", {font: "21px Arial", fill: "#FFFFFF"});
+        marvelText.stroke = "#333333";
+        marvelText.strokeThickness = 5;
+        boxMarvel.body.setCategoryContactCallback(2, boxCallback, this);
+    }
+
+    if(getUrlParameter.includes("trash")) {
+
+        var trash = game.add.sprite(40, 605, 'trash');
+        game.physics.box2d.enable(trash);
+        trash.body.fixedRotation = true;
+        trash.body.static = true;
+        trashText = game.add.text(25, 640, " 0", {font: "21px Arial", fill: "#FFFFFF"});
+        trashText.stroke = "#333333";
+        trashText.strokeThickness = 5;
+        trash.body.setCategoryContactCallback(2, boxCallback, this);
+    }
+
+    if(getUrlParameter.includes("mario")) {
+
+        var boxMario = game.add.sprite(800, 610, 'boxMario');
+        game.physics.box2d.enable(boxMario);
+        boxMario.body.fixedRotation = true;
+        boxMario.body.static = true;
+        marioText = game.add.text(790, 640, "0", {font: "21px Arial", fill: "#FFFFFF"});
+        marioText.stroke = "#333333";
+        marioText.strokeThickness = 5;
+        boxMario.body.setCategoryContactCallback(2, boxCallback, this);
+    }
+
+
+
     var obj = game.add.group();
     obj.enableBody = true;
     obj.physicsBodyType = Phaser.Physics.BOX2D;
 
     // on cree chaque object  !
     $.each(nameObjects, function( index, value ) {
-        console.log("objet !");
-        var object = obj.create(Math.floor((Math.random() * game.width-100) ), 10, value);
+
+        var object = obj.create(Math.floor((Math.random() * game.width-100) ), Math.floor((Math.random() * game.height-100) ), value);
         object.body.setCollisionCategory(2);
+        object.inputEnabled = true;
+        object.events.onInputDown.add(textDown, this);
 
     });
 
-    if(getUrlParameter('poke') == 1) {
-        boxPokemon.body.setCategoryContactCallback(2,boxCallback,this);
-    }
-    if(getUrlParameter('south') == 1) {
-        boxSouthPark.body.setCategoryContactCallback(2,boxCallback,this);
-    }
-    if(getUrlParameter('trash') == 1) {
-        trash.body.setCategoryContactCallback(2,boxCallback,this);
-    }
-    if(getUrlParameter('mario') == 1) {
-        boxMario.body.setCategoryContactCallback(2,boxCallback,this);
-    }
 
-    console.log("avant mouse event");
+
     // Set up handlers for mouse events
     game.input.onDown.add(mouseDragStart, this);
     game.input.addMoveCallback(mouseDragMove, this);
     game.input.onUp.add(mouseDragEnd, this);
-    console.log("après mouse event");
-
     //timer
     game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
 
@@ -293,6 +260,13 @@ function create() {
 
 }
 
+function textDown () {
+    if(getUrlParameter.includes("help")) {
+        console.log(arguments[0].key);
+        helpText.text = "Indice : " + arguments[0].key.substring(1);
+    }
+}
+
 function mouseDragStart() {
 
     game.physics.box2d.mouseDragStart(game.input.mousePointer);
@@ -303,7 +277,6 @@ function mouseDragStart() {
 function mouseDragMove() {
 
     game.physics.box2d.mouseDragMove(game.input.mousePointer);
-    text = game.add.text(250, 16, '', { fill: '#ffffff' });
 
 }
 
@@ -323,7 +296,7 @@ function boxCallback(body1, body2, fixture1, fixture2, begin) {
     }
 
     if(body1.sprite.key=="boxPokemon"){
-        if(body2.sprite.key.includes("pokemon")){
+        if(body2.sprite.key.match("^p")){
             if (mouseDown){
                 poke++;
                 inTheBox(pokemonText,poke);
@@ -340,7 +313,7 @@ function boxCallback(body1, body2, fixture1, fixture2, begin) {
 
     if(body1.sprite.key=="boxSouthPark"){
 
-        if(body2.sprite.key.includes("south")){
+        if(body2.sprite.key.match("^s")){
 
             if (mouseDown){
 
@@ -355,8 +328,25 @@ function boxCallback(body1, body2, fixture1, fixture2, begin) {
             }
         }
     }
+    if(body1.sprite.key=="boxMarvel"){
+
+        if(body2.sprite.key.match("^ma")){
+
+            if (mouseDown){
+
+                marvel++;
+                inTheBox(marvelText,marvel);
+                var i = nameObjects.indexOf(body2.sprite.key);
+                if(i != -1) {
+                    nameObjects.splice(i, 1);
+                }
+                body2.sprite.destroy();
+
+            }
+        }
+    }
     if(body1.sprite.key=="boxMario"){
-        if(body2.sprite.key.includes("mario")){
+        if(body2.sprite.key.match("^m")){
 
             if (mouseDown){
 
@@ -394,51 +384,39 @@ function boxCallback(body1, body2, fixture1, fixture2, begin) {
         storage();
     }
 
- 
+
 
 }
 function storage() {
-
     //stock le storage en session storage
+    console.log("south: " + south + " pokemon: " + poke + " mario: " + mario + " trash: " + trash + " counter: " + counter);
     var data =
     {
         "southpark": south,
         "pokemon": poke,
         "mario": mario,
         "trash": trash,
-        "help": help,
-        "counter": counter,
-        "best" : best
-    }
+        "counter": counter
+    };
 
     if(sessionStorage.getItem("profil") === null) {
         var json = JSON.stringify(data);
         sessionStorage.setItem("profil",json);
-        console.log("le profil est nouveau.");
     }
 
     else {
-        console.log("un profil existe déjà.");
         var jsonobj = sessionStorage.getItem("profil");
         var obj = JSON.parse(jsonobj);
 
         if (obj['counter'] < counter) {
             var json = JSON.stringify(data);
-            console.log('');
             sessionStorage.setItem("profil",json);
         }
 
         else {
         }
+
     }
-
-    obj['southpark'] = obj['southpark'] + south;
-    obj['pokemon'] = obj['pokemon'] + south;
-    obj['trash'] = obj['trash'] + south;
-    obj['mario'] = obj['mario'] + south;
-
-    console.log("south: " + south + " pokemon: " + poke + " mario: " + mario + " trash: " + trash + " counter: " + counter);
-
 
 
 
@@ -452,6 +430,7 @@ function inTheBox(item,value) {
     item.text = value;
 
 }
+
 
 function updateCounter() {
 
