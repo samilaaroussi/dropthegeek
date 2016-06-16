@@ -136,8 +136,6 @@ function create() {
         boxMarvel.body.setCategoryContactCallback(2, boxCallback, this);
     }
 
-    if(getUrlParameter.includes("trash")) {
-
         var trash = game.add.sprite(40, 605, 'trash');
         game.physics.box2d.enable(trash);
         trash.body.fixedRotation = true;
@@ -146,7 +144,6 @@ function create() {
         trashText.stroke = "#333333";
         trashText.strokeThickness = 5;
         trash.body.setCategoryContactCallback(2, boxCallback, this);
-    }
 
     if(getUrlParameter.includes("mario")) {
 
