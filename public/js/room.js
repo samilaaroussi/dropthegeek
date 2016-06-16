@@ -17,11 +17,6 @@ var counter = 0;
 var getUrlParameter= null;
 
 
-
-
-
-
-
 function preload() {
     getUrlParameter=getUrlParameter();
 
@@ -65,7 +60,7 @@ function create() {
     room.smoothed = false;
 
     game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
-    /*  music = game.add.audio('tetris');
+     music = game.add.audio('tetris');
 
      var rand = Math.floor((Math.random() * 2));
      if(rand == 0){
@@ -76,7 +71,7 @@ function create() {
 
      music.play();
      music.volume = 0.2;
-     */
+
 
 
     helpText = game.add.text(game.width-200, 140, '', {font: "21px Arial", fill: '#ffffff' });
