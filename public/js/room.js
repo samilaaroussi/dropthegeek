@@ -18,10 +18,6 @@ var getUrlParameter= null;
 
 
 
-//Fonction: Récupère les paramètres de l'URL
-var getUrlParameter = function getUrlParameter() {
-    return decodeURIComponent(window.location.search.substring(1));
-};
 
 
 
@@ -253,9 +249,14 @@ function create() {
                 game.paused = false;
             }
         }
-    };
+    }
 
 }
+
+//Fonction: Récupère les paramètres de l'URL
+var getUrlParameter = function getUrlParameter() {
+    return decodeURIComponent(window.location.search.substring(1));
+};
 
 function textDown () {
     if(getUrlParameter.includes("help")) {
@@ -327,7 +328,7 @@ function boxCallback(body1, body2, fixture1, fixture2, begin) {
     }
     if(body1.sprite.key=="boxMarvel"){
 
-        if(body2.sprite.key.match("^ma")){
+        if(body2.sprite.key.match("^a")){
 
             if (mouseDown){
 
@@ -360,8 +361,13 @@ function boxCallback(body1, body2, fixture1, fixture2, begin) {
     }
     if(body1.sprite.key=="trash"){
         if (mouseDown){
-
-            trash++;
+            if(body2.sprite.key.match("^d")) {
+                trash++;
+            }else {
+                if(trash>0){
+                    trash--;
+                }
+            }
             inTheBox(trashText,trash);
             var i = nameObjects.indexOf(body2.sprite.key);
             if(i != -1) {
